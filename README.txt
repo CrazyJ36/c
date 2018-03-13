@@ -1,3 +1,7 @@
+For Windows Specific instructions and exe creation, see:
+https://msdn.microsoft.com/en-us/library/bb384838.aspx
+and c/SizeOfInt
+
 Linux:
 - Install the C compiler: 
 
