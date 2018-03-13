@@ -1,3 +1,4 @@
+Linux:
 - Install the C compiler: 
 
 GCC:
