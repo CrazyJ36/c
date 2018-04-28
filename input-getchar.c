@@ -2,7 +2,7 @@
 int main()
 {
    char c;
-   printf("Enter a value: ");
+   printf("Enter 1 character: ");
 // getchar() gets the first character on the last line
    c = getchar();
    printf("\nYou entered: ");
