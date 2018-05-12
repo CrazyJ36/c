@@ -7,7 +7,8 @@ int main(void)
 // print instructions to user
     printf("Enter max of 5 characters: ");
 // scanf (scan console) for input with(%s= data type-string), (assign input to var-text)
-    scanf("%s", text);
+    scanf("%s", text); // it seems that compilers would rather have an '&' before re-using a
+                       // variable. eg: &text sometimes warnings are shown otherwise.
 // printf (%s means type of printed data will be string), (string content)
     printf("%s", "you entered: ");
 // printf of type string using variable text.
