@@ -1,3 +1,11 @@
+/* Shows basics of if, else if, else.
+   brackets {} are not necessary if only one statement is executed in if block.
+   if multiple statements are to be executed in an if block, the code may continue
+   all over the place, not knowing where to break.
+
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 int main()
