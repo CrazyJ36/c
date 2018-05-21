@@ -1,10 +1,16 @@
 #include <stdio.h>
 
 int main() {
-  /* Operator precedence has to do with which operators come first in an equation expression.
-     + and - are equal in precedence, as are *,/,%. equal-precedence operators are read form left-to-right.
-     If combinations of non-equal precedence operators need to evaluated as they are, without confusion
-     use perenthesis, making it read from right-to-left instead of left-to-right (seemingly).
+  /* Operator precedence has to do with which operators
+     come first in an equation expression.
+     + and - are equal in precedence, as are *,/,%.
+     equal-precedence operators are read form left-to-right.
+     If combinations of non-equal precedence operators
+     need to evaluated as they are, without confusion
+     use perenthesis, making it read from right-to-left
+     instead of left-to-right (seemingly).
+     If evaluating comes out imprpper due to ordering further,
+     you can break the equation into seperate statements.
   */
   int a = 2;
   int b = 3;
