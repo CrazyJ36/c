@@ -1,11 +1,11 @@
 /* Logical Operators && (and), || (or).
    Used to form an in-line compound boolean expression tests.
    (!)(is not) is used to reverse the state A boolean expression.
-   Others:
-   ==   -equals
-   <    -less than
-   >    -greater than
-   >=   -greater than or equal to 
+   && will be evaluated first(higher precendence).
+   Certain expressions can be evaluated first by using perentheses.
+   In C, any non-zero value is considered true and A 0 is false.
+   The logical operator therefore converts A true value to 0 and
+   false to 1.
 */
 
 #include <stdio.h>
@@ -22,6 +22,10 @@ int main() {
     printf("letter is c or d\n");
   } else {
     printf("letter is not c or d\n");
+  }
+  int num2 = 1;
+  if (!num2 == 2 || num2 < 2) { // !(not) operator
+    printf("done\n");
   }
 
 }
