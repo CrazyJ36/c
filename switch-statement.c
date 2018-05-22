@@ -9,18 +9,18 @@
 
 int main() {
   int num = 2;
-  
+
   switch (num) {
     case 1:
-      printf("num is 1");
+      printf("num is 1\n");
       break;
     case 2:
-      printf("num is 2");
+      printf("num is 2\n");
       break;
     case 3:
-      printf("num is 3");
+      printf("num is 3\n");
       break;
     default:
-      printf("num is other");
-  }  
+      printf("num is other\n");
+  }
 }
