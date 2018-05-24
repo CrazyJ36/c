@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int global_variable = 0; // variable available to entire file from here.
+
 int main() {
   const int x = 4; //declaring int number as constant variable
   printf("%d \n",x);

@@ -9,12 +9,14 @@
 #include <stdio.h>
 
 int main() {
+  // increment int
   int x = 3;
   x++;
   printf("int x = 3;\nx++;\nx is now: %d\n", x);
-  int ex = 4;
-  ex--;
-  printf("int ex = 4;\nex--;\nex is now: %d\n", ex);
+  // decrement int
+  int nx = 4;
+  nx--;
+  printf("int ex = 4;\nex--;\nex is now: %d\n", nx);
   printf("\n");
 
   int y = 4;
