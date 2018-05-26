@@ -1,20 +1,18 @@
 #include <stdio.h>
-#include <unistd.h>
+#include <unistd.h> // for usleep()
+#include <stdlib.h> // for exit()
+
 int main() {
-
-    char arr[3] = {'|','\\','/'};
-
-    for (int i = 0; i < 1; i++) {
-
-        for (int j = 0; j < 4; j++) {
-            printf("Nested loop is at: %d\n", j);
-
-            int x = 0;
-            char y = arr[x];
-            printf("%c", y);
-            x++;
-        }
-
-    printf("First(main) loop is at: %d\n", i);
-    }
+  system("setterm -cursor off"); // this linux com
+  char arr[5] = {'|','/','-','\\'};
+  for (int x = 0; x < 6; x++) {
+    fflush(stdout); // clears at least that character space.
+    char y = arr[x];
+    printf("\b%c", y);
+    usleep(200000);
+  }
+  printf("\n");
+  system("setterm -cursor on");
+  return 0;
+  exit(0);
 }
