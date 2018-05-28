@@ -1,3 +1,7 @@
+/* To make the snake appear to go horizontal, fflush(stdout)
+   befor every printf().
+*/
+
 #include <stdio.h>
 #include <unistd.h>
 
