@@ -15,9 +15,10 @@
 
 void main()
 {
-  printf("testing my newline header file:");
-  newline();  // this function is form another file.
-  printf("A new line should have just been made.");
+  printf("testing custom newline.h header file:");
+  newline();  // this function is from another file.
   newline();
+  printf("A new line should have just been made.");
+  newline();newline();newline();
   exit(0);
 }
