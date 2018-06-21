@@ -2,6 +2,10 @@
    You can have pointers and values.
    you turn a pointer into a value with *
    you turn a value in to a pointer with &
+
+   A pointer can be used to hold arrays as opossed to variables,
+   pass arrays to functions and back,
+   return arrays using *function() {}.
 */
 
 #include <stdio.h>
