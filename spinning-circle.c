@@ -19,6 +19,5 @@ int main() {
 
   printf("\n");
   system("setterm -cursor on"); // turn cursor back on before quitting
-  return 0;
   exit(0);
 }
