@@ -4,13 +4,16 @@
    Arrays are stored in memory and can not be changed.
    Arrays use indexed positions ( 0 = first item, 1 = second item),
    Index of array is also refered to as the 'subscript'.
+
+   Remember that an array name acts as a pointer to the first
+   element of the array. As in:  name = &array[0]
 */
 
 #include <stdio.h>
 
 int main() {
-  int intArr[3] = {3,2,1};
-  char charArr[3] = {'d','e','g'};
+  int intArr[3] = {3,2,1}; // int arrays must have no apostraphes' unless ascii is to be printed
+  char charArr[3] = {'d','e','g'}; // chars must have apostraphes' as if string
   printf("intArr second value: %d \n", intArr[1]);
   printf("charArr third value: %c \n", charArr[2]);
 
