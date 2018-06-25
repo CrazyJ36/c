@@ -6,7 +6,7 @@ int main() {
   system("setterm -cursor off"); // this is a linux command hides the block cursor as to not block the animation
   char arr[5] = {'|','/','-','\\'}; // this is the array of characters that will be traversed to form a spinning circle.
 
-  for (int z = 0; z < 5; z++) { // this makes the actual loop spin more than once
+  for (int z = 0; z < 3; z++) { // this makes the actual loop spin more than once
 
     for (int x = 0; x < 5; x++) { // this is the actual spinning animation loop
       fflush(stdout); // clears at least that character space.
