@@ -8,8 +8,10 @@
    code gets built into this file during compilation.
 */
 
+// include personal header files for your program: "file.h"
 #include "/home/thomas/development/c/header-files/newline.h"
 
+// include system header files as: <file.h>
 #include <stdio.h>
 #include <stdlib.h>
 
