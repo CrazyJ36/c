@@ -4,7 +4,7 @@
 int main() {
   FILE * fp;
   fp = fopen ("test.txt", "w+");
-  fprintf(fp, "%s %s", "hello", "world\n");
+  fprintf(fp, "%s", "hello world\n");
   fclose(fp);
   return(0);
 }
