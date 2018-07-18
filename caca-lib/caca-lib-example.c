@@ -1,4 +1,5 @@
 #include <caca.h>
+
 int main(void)
 {
     caca_canvas_t *cv; caca_display_t *dp; caca_event_t ev;

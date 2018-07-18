@@ -4,8 +4,8 @@
 
 int main()
 {
-	const char *vptr;
-	vptr = curses_version();
-	printf("%s", vptr);
-    exit(0);	
+    const char *ptr;
+    ptr = curses_version();
+    printf("%s", ptr);
+    exit(0);
 }
