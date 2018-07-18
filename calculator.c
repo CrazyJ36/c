@@ -4,6 +4,15 @@
 
 int main(int argc, char *argv[]) {
 
+    // add help for which operators do what actions
+    char usage[47] = "Usage:\ncalculator <num> <+-/x> <num>\n";
+
+    // check for no argv[1,3]
+    if ( !(argv[1]) || !(argv[2]) || !(argv[3]) ) {
+    	printf("Invalid arguments.\n%s", usage);
+    	exit(1);
+    }
+
     char *a = argv[1];
     char *aPtr;
     double aNum = strtod(a, &aPtr);
@@ -12,14 +21,9 @@ int main(int argc, char *argv[]) {
     char *cPtr;
     double cNum = strtod(c, &cPtr);
 
-    char usage[47] = "Run as:\ncalculator <number> <+-/x> <number>\n";
-    // add help for which operators do what actions
-
     double result;
 
-    // check for no argv[1,3]
-
-    if (strcmp(argv[2], "+") == 0) {
+    if (strcmp(argv[2], "+") == 0) { // 0 if true
         result = aNum + cNum;
     } else if (strcmp(argv[2], "-") == 0) {
         result = aNum - cNum;
@@ -28,7 +32,7 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(argv[2], "x") == 0) {
         result = aNum * cNum;
     } else {
-        printf("Unknown (middle) math operator. %s", usage);
+        printf("Invalid (middle) math operator. %s", usage);
         exit(0);
     }
 
