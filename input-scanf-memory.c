@@ -8,14 +8,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 int main()
 {
   int num;
-
-  printf("This will put what you input into the same memory address as variable: int num.\nSo there is no wasted memory\nType A number: ");
-  scanf("%d", &num);
-  printf("memory address of what you typed: %d\n", &num);
-
+  printf("What you input will be stored in RAM, accessible by name: num\nType A number: ");
+/* scanf returns the number of items SUCCESSFULLY read.
+   so this if statement returns 0 if there's no items
+   entered, or if reading int(num) is unsuccessful */
+  if (scanf("%d", &num) == 0) {
+    printf("E: scanf returned non 0. Non-number or no input from user\n");
+  } else {
+    printf("Memory address of what you typed(&num): %p\n", &num);
+    printf("The value(num): %d\n", num);
+  }
   exit(0);
 }
