@@ -15,9 +15,10 @@ int main()
 /* scanf returns the number of items SUCCESSFULLY read.
    so this if statement returns 0 if there's no items
    entered, or if reading int(num) is unsuccessful */
-  if (scanf("%d", &num) == 0) {
+  if (scanf("%d", &num) == 0) { // could also be typed with precedence in mind if ( (scanf("%d", &num) ) == 0 )
     printf("E: scanf returned non 0. Non-number or no input from user\n");
   } else {
+    // %p is the memory address type reference
     printf("Memory address of what you typed(&num): %p\n", &num);
     printf("The value(num): %d\n", num);
   }
