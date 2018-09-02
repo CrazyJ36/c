@@ -4,8 +4,8 @@
    The argv parameter is an array of string pointers. The most common method for declaring argv is:
    char *argv[];
    The empty brackets indicate that it is an array of undetermined length. All command-line arguments
-   are passed to main() as strings. to access an individual string, index argc.
-   For example, argv[0] points to the program's name and argc[1] points to the first argument.
+   are passed to main() as strings. to access an individual string, index argv.
+   For example, argv[0] points to the program's name and argv[1] points to the first argument.
 
    Simply: 'int argc' is numbered list(index) of arguments, 'char *argv[]' is string text of those arguments.
 */
