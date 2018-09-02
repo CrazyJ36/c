@@ -6,6 +6,10 @@ returned by the function. Also note that when a local variable is
 being passed out of a function, you need to declare it as static in
 the function.
 Keep in mind that a[k] is the same as *(a + k).
+
+Also, user-defined functions, as opposed to using only
+statements in main(), are useful when you need to return result
+values/data from algorithmic statements.
 */
 
 #include <stdio.h>
