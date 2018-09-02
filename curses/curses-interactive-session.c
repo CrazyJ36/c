@@ -8,7 +8,7 @@
 */
 
 #include <stdio.h>
-#include <curses.h>
+#include <ncurses.h> // or curses.h, ncurses.h is symlinked to curses.h
 
 int main()
 {
