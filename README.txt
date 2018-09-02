@@ -1,3 +1,9 @@
+#TODO
+all executables should be in executable directory. not in categories folder.
+(eg. no executable should be in the read-file program folder)
+temp test files can be made when running.
+ 
+# HOW TO
 After c programs are compiled on one processor they
 cannot run on another until the "file.c" is compiled
 on the other machine.
