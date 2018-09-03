@@ -19,5 +19,11 @@ int main(void) {
   type 'int'. also re-assign num with 3 */
   printf("%x \n", num); /* print nums' new value,
   newly formatted as %x hexadecimal number */
+  // declare several variables in one line, then assign.
+  int var1, var2, var3;
+  var1 = 3;
+  var2 = 2;
+  var3 = 1;
+  printf("%d %d %d\n", var1, var2, var3);
   return(0);
 }
