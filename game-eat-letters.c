@@ -1,18 +1,22 @@
-/* Remember printf can loop and print to every new line,
-   but if you want to printf onto the same line, you'll
-   you'll want to fflush(stdout) before every printf().
-*/
-
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+char sprite = 'O';
+char food[6] = "-----";
 
 int main() {
-  char sprite = '0';
-  char food = '-';
+  system("setterm -cursor off");
 
+  printf("%c ", sprite);
+  printf("%s", food);
 
-
-// show sprite every time
-  for (int faster = 20; faster > 0; faster--) {
-    printf("%c", sprite);
+  for (int inc = 0; inc < 10; inc++) {
+    printf("\b");
+    usleep(200000);
   }
+
+  printf("\n");
+  system("setterm -cursor on");
+  exit(0);
 }
