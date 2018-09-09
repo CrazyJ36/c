@@ -9,8 +9,8 @@ int main() {
 
   // 1. Struct (object structure) must be initialized first
   struct names { // type, tag, { members; };
-    char n1[4];
-    char n2[6];
+    char n1[4]; // values cannot be assigned here, as the main struct is
+    char n2[6]; // the 'setting for different values'
     int npeople;
   }; // don't forget ';'
 
