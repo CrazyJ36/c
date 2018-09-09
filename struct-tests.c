@@ -7,10 +7,17 @@
 
 int main() {
 
+  // 1. Struct (object structure) must be initialized first
   struct names { // type, tag, { members; };
-    char[] jen;
-    char[] james;
-    int people;
+    char n1[4];
+    char n2[6];
+    int npeople;
   }; // don't forget ';'
 
+  // 2. Then that basic "structure", can be instantiated several
+  // times as different variables with different values.
+  struct names n  = {"jen", "james", 2};
+  printf("%s\n", n.n1); // n.n1 is 'struct names {} as new struct n, position 1.
+
+  return(0);
 }
