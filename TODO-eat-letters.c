@@ -1,0 +1,1 @@
+/* show less range indexes of char array */
