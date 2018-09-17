@@ -7,6 +7,7 @@
 - endwin(); must be used to end the curses screen session.
 */
 
+ 
 #include <stdio.h>
 #include <ncurses.h> // or curses.h, ncurses.h is symlinked to curses.h
 
