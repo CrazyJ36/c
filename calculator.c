@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
     char usage[47] = "Usage:\ncalculator <num> <+-/x> <num>\n";
 
     // check for no argv[1,3]
-    if ( !(argv[1]) || !(argv[2]) || !(argv[3]) ) {
+    if ( !(argv[1]) || !(argv[2]) || !(argv[3]) || argc < 1) {
     	printf("Invalid arguments.\n%s", usage);
     	exit(1);
     }
