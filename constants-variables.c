@@ -9,11 +9,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int global_variable = 0; // variable available to entire file from here.
+#define ONE_NUMBER 1 //  Preproccessed during compilation for performance. Available to entire file from here.
+
+int TWO_NUMBER = 2; // defined before main(), initialized at runtime.
 
 int main() {
-  const int x = 4; //declaring int number as constant variable
-  printf("%d \n",x);
-  //x = 5; // trying to reassign the value causes read-only error
+
+  const int three_number = 3; // Another constant, not preproccessed, value does not change, initialized at runtime.
+
+  printf("%d %d %d\n", ONE_NUMBER, TWO_NUMBER, three_number);
+
   exit(0);
 }
