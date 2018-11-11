@@ -1,5 +1,6 @@
 #include <ncurses.h>
-
+/* TODO get winner and orint at done.
+*/
 int main() {
   initscr(); // start curses
 
@@ -36,5 +37,13 @@ int main() {
   // after loop endwin()
   endwin();
   printf("done\n");
+  printf("Left: %d Right: %d\n", left, right);
+  if (left > right) {
+    printf("Left Wins!\n");
+  } else if (right > left) {
+    printf("Right Wins!\n");
+  } else {
+	  printf("Tie! Rematch\n");
+  }
   return(0);
 }
