@@ -36,7 +36,7 @@ int main() {
 
   // after loop endwin()
   endwin();
-  printf("done\n");
+  printf("Game over after 10 tries.\n");
   printf("Left: %d Right: %d\n", left, right);
   if (left > right) {
     printf("Left Wins!\n");
