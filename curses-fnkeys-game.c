@@ -1,5 +1,6 @@
 #include <ncurses.h>
-/* TODO get winner and orint at done.
+/* TODO not echo chars and respond only if
+   getch is arrow
 */
 int main() {
   initscr(); // start curses
