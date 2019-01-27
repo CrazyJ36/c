@@ -5,6 +5,8 @@
      statements;
    }
 
+   or (initializer, true/false condition, optional tester)
+
    initialValue is an initial value of A variable.
    condition is A boolean expression to evaluate after every loop.
    incrementer can increase or decrease initailValue a by A value(like X++;)

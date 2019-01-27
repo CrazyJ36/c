@@ -1,9 +1,13 @@
 /* These results corespond to any acsii convertion chart. Int(10) gets converted in inline string statement.
-   Data Types:
+   Data Types for printf:
    %d decimal
    %o octal
    %x hexadecimal lowercase
    %X hexadecimal capital case
+   Others:
+   %c single byte ascii character
+   %s character string (char[] array)
+   %% prints the "%" character itself, as in ("%%1", int 4) could print %4
 */
 #include <stdio.h>
 #include <stdlib.h>
