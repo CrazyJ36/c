@@ -3,6 +3,7 @@
    formula to print number
    at least 3 digits wide(hundreds),
    with 2 digits after decimal point(fraction accuracy)
+   The 'f' specifies that this is A floating point value.
 */
 #include <stdio.h>
 
