@@ -9,7 +9,7 @@ This is for compiling basic console and desktop applications with no IDE.
 - Simple C desktop program code:
 ________ 
 #include <windows.h>
-//#pragma comment(lib,"user32.lib");
+//#pragma comment(lib,"user32.lib")
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {

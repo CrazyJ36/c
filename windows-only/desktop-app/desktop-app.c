@@ -1,14 +1,24 @@
 #include <windows.h>
+#pragma comment(lib,"user32.lib")
 
-/* Strings in '#define': you don't have to count needed characters, concatenates
-   at compile time, can still use functions like sizeOf(MSG).
-*/
-#define MSG "Important message:\nNot really."
+// defining here concatenates at compile time
+#define MSG "Select an option.."
+#define title "Hello"
+#define title2 "Confirm"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
     LPSTR lpCmdLine, int nCmdShow)
 {
-    char title[6] = "Hello";
-	MessageBox(NULL, MSG, title, MB_YESNOCANCEL | MB_DEFBUTTON2 | MB_ICONQUESTION);
+	int diag = MessageBox(NULL, MSG, title, MB_YESNOCANCEL | MB_DEFBUTTON2 | MB_ICONQUESTION);
+	
+	char response[12] = ""; // char array buffer, max 12 chars for  the if'responses'
+	if (diag == IDNO) {
+	    strcpy(response, "Clicked No");
+	} else if (diag == IDYES) {
+		strcpy(response, "Clicked Yes");
+	} else if (diag == IDCANCEL) {
+	    exit(1223); // 1223 Is exit code for "the operation was cancelled by user".
+	}
+	MessageBox(NULL, response, title2, MB_OK);
 	exit(0);
 }
