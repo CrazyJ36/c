@@ -1,19 +1,19 @@
-/* Doc more of this */
-
 #include <windows.h>
-// A outer function for the Window Procedure
+#define CLICKED (100)
+// A function for the Window Procedure
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch(uMsg) {
         case WM_CLOSE:
             DestroyWindow(hWnd); break;
         case WM_DESTROY:
             PostQuitMessage(0); break;
-		// This next case section can be replaced by 'wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);' in register window below after 'WNDCLASSEX wc;'
 		case WM_PAINT:
 		    PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
 			FillRect(hdc, &ps.rcPaint, (HBRUSH) (COLOR_WINDOW+1));
-			EndPaint(hWnd, &ps);
+			EndPaint(hWnd, &ps); break;
+		case WM_COMMAND:
+		    MessageBox(NULL, "Clicked", "Done", MB_OK); break;
         default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
     return 0;
@@ -33,6 +33,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     RegisterClassEx(&wc);
     // Create A Window
     HWND hWnd = CreateWindowEx(0, mClassName, "Title", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 512, 248, NULL, NULL, hInstance, NULL);
+    HWND hWndButton = CreateWindow("BUTTON", "Button", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 10, 86, 32, hWnd, (HMENU)CLICKED, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
+	// do stuff on btn click using BS_COMMANDLINK above.
+	
 	// Check CreateWindow success
     if(hWnd == NULL) return 0;
 	// Show the window
