@@ -1,3 +1,8 @@
+/* The scanf() function from stdio.h allows
+   receiving input from stdin(terminal by default)
+   in A formatted way, to get only
+   characters that are required.
+*/
 #include <stdio.h>
 
 int main(void)
