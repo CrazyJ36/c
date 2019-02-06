@@ -1,0 +1,1 @@
+/* to be namespace function example */
