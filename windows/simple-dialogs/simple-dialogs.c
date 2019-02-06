@@ -16,9 +16,10 @@ If this wasn't in the code, you would link "user32.lib" when compiling with:
 */
 #pragma comment(lib,"user32.lib") // or: __pragma( comment(lib,"user32.lib") ) // two underscores
 
-/* defining strings here forces concatenation at compile time,
+/* defining strings as pre-processor forces concatenation at compile time,
   requires no memory as it's replacing text with literal, 
   and no hard-coded type means it can be used for any function.
+  These can't be used if A pointer needs passed though.
 */
 #define MSG "Select an option..."
 #define title "Hello"
