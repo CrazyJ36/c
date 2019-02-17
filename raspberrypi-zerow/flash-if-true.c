@@ -26,5 +26,5 @@ int main()
       printf("Invalid input... Exiting\n");
       return(0);
   }
-
+  bcm2835_close();
 }
