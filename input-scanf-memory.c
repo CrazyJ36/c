@@ -1,4 +1,4 @@
-/* the scanf("text", to-variable) places the input into a memory address location.
+/* the scanf("prompt", to-variable) places the input string into a memory address location.
    to access this memory location you should use (&var) with the (&) symbol which
    means point to the memory address location of the variable. This is better for memory.
    A memory address is given as A hexadecimal number(hex a base-16 number system that uses 0
@@ -18,8 +18,8 @@ int main()
   if (scanf("%d", &num) == 0) { // could also be typed with precedence in mind if ( (scanf("%d", &num) ) == 0 )
     printf("E: scanf returned non 0. Non-number or no input from user\n");
   } else {
-    // %p is the memory address type reference
-    printf("Memory address of what you typed(&num): %p\n", &num);
+    // %p means the memory address type reference
+    printf("Local memory address of what you typed(&num): %p\n", &num);
     printf("The value(num): %d\n", num);
   }
   exit(0);
