@@ -1,7 +1,6 @@
-/* THIS MUST BE BUILT WITH 64_native_tools cmd prompt for visual studio if meant to run on 64...
-
-Doc more of this
-
+/* Builds architecture specific. So if running desktop apps for 64, use 64 build tools,
+   or the app will show nothing at all, causing confusion.
+   Doc more of this
 */
 
 #include <windows.h>

@@ -1,3 +1,7 @@
+/* Builds architecture specific. So if running desktop apps for 64, use 64 build tools,
+   or the app will show nothing at all, causing confusion.
+*/
+
 #include <windows.h>
 #include <stdio.h>
 
