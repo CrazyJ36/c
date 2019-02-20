@@ -1,4 +1,6 @@
 #include <windows.h>
+#include <stdio.h>
+
 #define CLICKED (100)
 // A function for the Window Procedure
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
