@@ -1,4 +1,8 @@
-/* Doc more of this */
+/* THIS MUST BE BUILT WITH 64_native_tools cmd prompt for visual studio if meant to run on 64...
+
+Doc more of this
+
+*/
 
 #include <windows.h>
 // A outer function for the Window Procedure
@@ -44,4 +48,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         DispatchMessage(&Msg);
     }
     return Msg.wParam;
+	return 0;
 }
