@@ -1,6 +1,6 @@
 /* The break statement can be used to imediatly exit A loop.
    The continue statement can be used to 'skip' a loop iteration.
-   
+
 */
 #include <stdio.h>
 
@@ -9,7 +9,7 @@ int main() {
 
   while (num > 0) {
     if (num == 3)  // add an if statement to evaluate another condition.
-      break; // if num gets to three, break and end the loop. Stop at three
+      break; // if num gets to three, break and end the loop. Stop at three.
     printf("%d\n", num);
     num--;
   }
