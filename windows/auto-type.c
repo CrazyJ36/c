@@ -1,16 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h> // for sleep(seconds) in linux
 
 int main() {
   char chars[6] = {'h','e','l','l','o'};
   int x = 0;
-  while (x < 5) {
+  while (x < 6) {
     printf("%c", chars[x]);
-    fflush(stdout);
-    sleep(1);
+    _sleep(300);
     x++;
   }
-  printf("\n");
   exit(0);
 }
