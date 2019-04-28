@@ -2,6 +2,7 @@
    receiving input from stdin(terminal by default)
    in A formatted way, to get only
    characters that are required.
+   This can assign user values to program variables.
 */
 #include <stdio.h>
 
