@@ -1,0 +1,37 @@
+﻿Build started 4/27/2019 11:34:29 PM.
+     1>Project "C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\DesktopWin32\DesktopWin32.vcxproj" on node 2 (build target(s)).
+     1>PrepareForBuild:
+         Creating directory "C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\".
+       InitializeBuildStatus:
+         Creating "Debug\DesktopWin32.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Debug\DesktopWin32.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\DesktopWin32.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt DesktopWin32.cpp
+         DesktopWin32.cpp
+       ResourceCompile:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Debug\DesktopWin32.res" DesktopWin32.rc 
+       ManifestResourceCompile:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\DesktopWin32.exe.embed.manifest.res" Debug\DesktopWin32_manifest.rc 
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\DesktopWin32.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\DesktopWin32.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\DesktopWin32.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\DesktopWin32.lib" /MACHINE:X86 Debug\DesktopWin32.res
+         Debug\DesktopWin32.exe.embed.manifest.res
+         Debug\DesktopWin32.obj
+         Debug\stdafx.obj
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\DesktopWin32.exe.embed.manifest" /manifest Debug\DesktopWin32.exe.intermediate.manifest
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\DesktopWin32.exe.embed.manifest.res" Debug\DesktopWin32_manifest.rc 
+       LinkEmbedManifest:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\DesktopWin32.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\DesktopWin32.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\DesktopWin32.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\DesktopWin32.lib" /MACHINE:X86 Debug\DesktopWin32.res
+         Debug\DesktopWin32.exe.embed.manifest.res
+         Debug\DesktopWin32.obj
+         Debug\stdafx.obj
+         DesktopWin32.vcxproj -> C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\Debug\DesktopWin32.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\DesktopWin32.unsuccessfulbuild".
+         Touching "Debug\DesktopWin32.lastbuildstate".
+     1>Done Building Project "C:\Users\Thomas\Development\c\windows\Win7VSProjects\DesktopWin32\DesktopWin32\DesktopWin32\DesktopWin32.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.97
