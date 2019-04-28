@@ -16,7 +16,9 @@ int main()
   char txt[20];
   float c;
   printf("Type: int int float string\n");
-  scanf("%d %d %f %s", &a, &b, &c, txt); // user-set 'list', one line
+  // user-set 'list', one line, &a.. needed for vars addresses,
+  // unless var acts as  pointer like test.
+  scanf("%d %d %f %s", &a, &b, &c, txt);
   // print all thats'^ result..
   printf("a: %d , b: %d, c: %0.1f, NUM: %d, txt: %s.\n", a, b, c, NUM, txt);
   return(0);
