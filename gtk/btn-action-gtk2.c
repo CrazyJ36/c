@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
   printf("Instantiating new top level gtk window...\n");
   GtkWidget *win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   printf("Instantiating new button...\n");
-  GtkWidget *btn = gtk_button_new_with_label("Close");
+  GtkWidget *btn = gtk_button_new_with_label("Print to Shell");
   printf("Adding button to top level window...\n");
   gtk_container_add(GTK_CONTAINER(win), btn); // add-to win, referencing win as container, with btn variable.
   g_signal_connect(win, "delete_event", G_CALLBACK(end_program), NULL); // delete_event is from window 'x'(close) click. This is connected to 'win' Whole window widget, not btn.
