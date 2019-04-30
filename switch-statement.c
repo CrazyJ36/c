@@ -22,6 +22,7 @@
 int main() {
   int num = 2;
 
+  // Switch/case using the value of num, as-in 'if the case of num is..'
   switch (num) {
     case 1:
       printf("num is 1\n");
