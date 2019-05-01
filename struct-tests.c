@@ -8,16 +8,16 @@
 int main() {
 
   // 1. Struct (object structure) must be initialized first
-  struct names { // type, tag, { members; };
-    char n1[4]; // values cannot be assigned here, as the main struct is
-    char n2[6]; // the 'setting for different values'
+  struct Names { // type, tag, { members; };
+    char nameFirst[4]; // values cannot be assigned here, as the main struct is
+    char nameLast[6]; // the 'setting for different values'
     int npeople;
   }; // don't forget ';'
 
   // 2. Then that basic "structure", can be instantiated several
   // times as different variables with different values.
-  struct names n  = {"jen", "james", 2};
+  struct names names_ref_object  = {"Jen", "James", 2};
   printf("%s\n", n.n1); // n.n1 is 'struct names {} as new struct n, position 1.
-
+  print
   return(0);
 }
