@@ -1,0 +1,19 @@
+# Install C library for raspberry pi(including zero)
+
+# Rebuilt the library for new versions!
+
+This might work:
+$ sudo cp libbcm2835.a /usr/local/lib/
+$ sudo cp bcm2835.h /usr/local/include
+
+If not, or if you'd rather build from new source:
+- Download package archive from: http://www.airspayce.com/mikem/bcm2835/
+$ tar zxvf bcm2835-version.tar.gz
+$ cd bcm2835-version
+$ ./configure
+$ make
+$ sudo make check
+$ sudo make install
+
+The files from "This might work" should be installed
+in those directories during this process.
