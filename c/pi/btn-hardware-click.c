@@ -1,11 +1,11 @@
 /* This app waits some time for a button press in raspberry pi, lights an led if button is pressed down */
-
+// This probably does not work with adafruits soft tactile buttons.
 #include <bcm2835.h>
 #include <stdio.h>
 
-#define BTN RPI_GPIO_P1_15
+#define BTN RPI_GPIO_P1_08 // or just 14
 #define pin_level bcm2835_gpio_lev(BTN) // get voltage level, pin-to-ground of pin with button attached
-#define LED 17
+#define LED 10
 
 int main() {
   if (!bcm2835_init()) return(1);
