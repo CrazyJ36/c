@@ -5,7 +5,7 @@
 
 #define BTN RPI_GPIO_P1_08 // or just 14
 #define pin_level bcm2835_gpio_lev(BTN) // get voltage level, pin-to-ground of pin with button attached
-#define LED 10
+#define LED RPI_GPIO_P1_10
 
 int main() {
   if (!bcm2835_init()) return(1);

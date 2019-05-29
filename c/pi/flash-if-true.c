@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <bcm2835.h>
 
-#define LED RPI_GPIO_P1_11
+#define LED RPI_GPIO_P1_10
 
 int main()
 {
