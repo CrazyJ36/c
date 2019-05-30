@@ -9,7 +9,7 @@
 */
 
 // include personal header files for your program: "file.h"
-#include "/home/thomas/development/c/header-files/newline.h"
+#include "header-files/newline.h"
 
 // include system header files as: <file.h>
 #include <stdio.h>
@@ -17,10 +17,11 @@
 
 void main()
 {
-  printf("testing custom newline.h header file:");
+  printf("testing custom newline.h header file which does:\nprintf(\"\\n\"); as newline();\n");
   newline();  // this function is from another file.
   newline();
-  printf("A new line should have just been made.");
+  printf("2 newlines above\n");
   newline();newline();newline();
+  printf("3 newlines above\n");
   exit(0);
 }
