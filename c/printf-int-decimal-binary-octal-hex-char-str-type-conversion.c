@@ -24,5 +24,11 @@ int main()
   printf("Several ASCII Characters. 48,49,50,51 in decimal equals these ascii characters:\n");
   char y[4] = {48,49,50,51};
   printf("%s\n", y);
+
+  printf("Convert '3' to decimal form(num = (double) new_num)\n");
+  int z = 3;
+  double w = (int) z;
+  printf("%1.2f\n", w);
+
   exit(0);
 }
