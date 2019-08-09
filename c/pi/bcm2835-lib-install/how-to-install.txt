@@ -2,7 +2,7 @@
 
 # Rebuilt the library for new versions!
 
-This might work:
+This works with pre-compiled libs:
 $ sudo cp libbcm2835.a /usr/local/lib/
 $ sudo cp bcm2835.h /usr/local/include
 
