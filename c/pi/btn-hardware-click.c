@@ -1,18 +1,27 @@
-/* This app waits some time for a button press in raspberry pi, lights an led if button is pressed down */
-// This probably does not work with adafruits soft tactile buttons.
+/* This app waits some time for a button press,
+*  lights an led if button is pressed down
+*  This probably does not work with adafruit
+*  soft tactile buttons.Those don't give the
+*  best connection when pressed due to the ruuber
+*  that connects the switchs' terminals.
+*/
 #include <bcm2835.h>
 #include <stdio.h>
 
-#define BTN RPI_GPIO_P1_08 // or just 14
-#define pin_level bcm2835_gpio_lev(BTN) // get voltage level, pin-to-ground of pin with button attached
-#define LED RPI_GPIO_P1_10
+#define BTN RPI_GPIO_P1_08 // or just 14 for gpio #
+#define LED RPI_GPIO_P1_10 // was RPI_GPIO_P1_10
+
+// get voltage level of pin to ground (is connected or not)
+#define pin_level bcm2835_gpio_lev(BTN)
 
 int main() {
-  if (!bcm2835_init()) return(1);
-
+  if (!bcm2835_init()) {
+      printf("Is bcm2835 library installed?\n");
+      return(1);
+  }
   bcm2835_gpio_fsel(BTN, BCM2835_GPIO_FSEL_INPT); // set pin with button as input
   bcm2835_gpio_set_pud(BTN, BCM2835_GPIO_PUD_UP); // enable pull-up control on btn pin to make input act as button
-  bcm2835_gpio_fsel(17, BCM2835_GPIO_FSEL_OUTP); // let pin with led attached as output
+  bcm2835_gpio_fsel(LED, BCM2835_GPIO_FSEL_OUTP); // let pin with led attached as output
 
   int count = 0;
 
