@@ -1,6 +1,11 @@
-/* static variables are available to the whole program.
 
+/* Static variables can be available to the whole program.
+Static variables have a local 'scope' but are not destroyed
+when a function is exited. Therefore, a static variable
+retains its value for the life of the program and can
+be accessed every time A function that uses it is re-entered.
 */
+
 #include <stdio.h>
 
 void say_hello();
