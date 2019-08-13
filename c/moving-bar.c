@@ -23,7 +23,7 @@ int main() {
   char x[20] = "-";
 
   while (count < 10) {
-    strcat(y, x);  // strcat(taget, source);
+    strcat(y, x);  // strcat(taget, source); only adds another x on loop.
     printf("%s\n", y); // thing now has additional space after each loop.
     usleep(300000);
     count++;
