@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <bcm2835.h>
 
-#define LED RPI_GPIO_P1_10
+#define LED RPI_GPIO_P1_15
 
 int main()
 {
@@ -19,11 +19,8 @@ int main()
     delay(3000);
     bcm2835_gpio_clr(LED);
     return(0);
-  } else if(c == 'n') {
-      printf("You typed 'n'... Exiting\n");
-      return(0);
   } else {
-      printf("Invalid input... Exiting\n");
+      printf("Didn't get y, no flash... Exiting\n");
       return(0);
   }
   bcm2835_close();
