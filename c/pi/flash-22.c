@@ -7,7 +7,7 @@ int main()
   if(!bcm2835_init()) return(1); // attempt initialize library functions
   bcm2835_gpio_fsel(PIN, BCM2835_GPIO_FSEL_OUTP); // select pin and output, pin num is as ordered on board
   int incr = 1;
-  printf("Flashing LED on bcm pin 11.\n");
+  printf("Flashing LED on bcm pin 22.\n");
   while(incr < 6) {
     printf("%d out of 5..\n", incr);
     bcm2835_gpio_write(PIN, HIGH);
