@@ -23,19 +23,17 @@ int flash(int led) {
   printf("Flashing an LED..\n\n");
   sleep(1);
   bcm2835_gpio_write(led, HIGH);
-  sleep(2);
+  sleep(1);
   bcm2835_gpio_write(led, LOW);
 }
 
-void detect_button(int btn) {
-   bcm2835_gpio_set_pud(btn, BCM2835_GPIO_PUD_UP);
-   printf("Press the button that is in the same left-to-right order...\n");
-   int count = 0;
-   while( bcm2835_gpio_lev(btn) == 1 ) {
-     delay(100);
-     count++;
-   }
-   printf("Correct %d button pressed!\n", btn);
+int detect_button(int btn) {
+  bcm2835_gpio_set_pud(btn, BCM2835_GPIO_PUD_UP);
+  int count = 0;
+  while( bcm2835_gpio_lev(btn) == 1 ) {
+    delay(100);
+    count++;
+  }
 }
 
 int main() {
@@ -54,18 +52,12 @@ int main() {
   bcm2835_gpio_fsel(btn4, in);
 
   int order1[4] = {led1, led2, led3, led4};
-  //int order2[4] = {led3, led2, led1, led4};
-  //int order3[4] = {led2, led3, led4, led1};
-  //int order4[4] = {led4, led1, led2, led3};
   int btn_order1[4] = {btn1, btn2, btn3, btn4};
-  //int btn_order2[4] = {btn3, btn2, btn1, btn4};
-  //int btn_order3[4] = {btn2, btn3, btn4, btn1};
-  //int btn_order4[4] = {btn4, btn1, btn2, btn4};
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i != 4; i++) {
     flash(order1[i]);
+    printf("Press button that corresponds to led - left-to-right...\n");
     detect_button(btn_order1[i]);
   }
 
 }
-

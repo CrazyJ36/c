@@ -28,24 +28,31 @@
 #include <stdio.h>
 
 int main() {
-  int x;
-  int max = 10;
+   int x;
+   int max = 10;
 
-  for (x=0; x < max; x++) { // i can be given A value here, boolean, imcrementer
-    printf("%d\n", x);
-  }
+   for (x=0; x < max; x++) { // i can be given A value here, boolean, imcrementer
+     printf("%d\n", x);
+   }
 
-  printf("\n");
+   printf("\n");
 // Multiplication Table (copied)
-  int i, j; //initialize two variables on the same line.
-  int table = 10;
-  int max2 = 12;
+   int i, j; //initialize two variables on the same line.
+   int table = 10;
+   int max2 = 12;
 
-  for (i = 1; i <= table; i++) {
-    for (j = 0; j <= max2; j++) {
-      printf("%d x %d = %d\n", i, j, i*j);
-    }
-  printf("\n");
-  }
-  return(0);
-}
+   for (i = 1; i <= table; i++) {
+     for (j = 0; j <= max2; j++) {
+       printf("%d x %d = %d\n", i, j, i*j);
+     }
+     printf("\n");
+   }
+
+   // For loop which acts as 'for-i-in' statement
+   // by getting size of array.
+   int arr[4] = {1,2,3,4};
+   for(int iter = 0; iter != sizeof(arr[4]); iter++) {
+     printf("%d\n", arr[iter]);
+   }
+   return 0;
+ }
