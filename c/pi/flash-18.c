@@ -1,7 +1,7 @@
 /* gcc -o flash-11 flash-11.c -l bcm2835 */
 #include <stdio.h>
 #include <bcm2835.h>
-#define PIN RPI_GPIO_P1_15
+#define PIN RPI_GPIO_P1_12
 int main()
 {
   if(!bcm2835_init()) return(1); // attempt initialize library functions
