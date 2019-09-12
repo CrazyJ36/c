@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int led1 = 18;
+int led1 = 18; // gpio number, board number is RPI_GPIO_P1_12
 int led2 = 4;
 int led3 = 22;
 int led4 = 23;
@@ -30,7 +30,7 @@ int flash(int led) {
 int detect_button(int btn) {
   bcm2835_gpio_set_pud(btn, BCM2835_GPIO_PUD_UP);
   int count = 0;
-  while( bcm2835_gpio_lev(btn) == 1 ) {
+  if ( bcm2835_gpio_lev(btn) == 1 ) {
     delay(100);
     count++;
   }
