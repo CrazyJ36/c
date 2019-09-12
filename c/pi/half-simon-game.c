@@ -28,9 +28,9 @@ int flash(int led) {
 }
 
 int detect_button(int btn) {
-  bcm2835_gpio_set_pud(btn, BCM2835_GPIO_PUD_UP);
+  //bcm2835_gpio_set_pud(btn, BCM2835_GPIO_PUD_UP);
   int count = 0;
-  if ( bcm2835_gpio_lev(btn) == 1 ) {
+  if (bcm2835_gpio_lev(btn) == 1 ) {
     delay(100);
     count++;
   }
@@ -38,7 +38,7 @@ int detect_button(int btn) {
 
 int main() {
   if (!bcm2835_init()) {
-    printf("bcm2835 failed.\n");
+    printf("bcm2835 failed to load.\n");
     return(1);
   }
 
