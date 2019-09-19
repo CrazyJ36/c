@@ -8,8 +8,8 @@
 #include <bcm2835.h>
 #include <stdio.h>
 
-#define BTN RPI_GPIO_P1_11 // or just gpio #
-#define LED RPI_GPIO_P1_12 //
+#define BTN RPI_GPIO_P1_16 // or just gpio #
+#define LED RPI_GPIO_P1_18 //
 
 // get voltage level of pin to ground (is connected or not)
 #define pin_level bcm2835_gpio_lev(BTN)
