@@ -2,26 +2,41 @@
 
 #include <stdio.h>
 #include <bcm2835.h>
+#include <stdlib.h> // for exit()
 
-#define LED RPI_GPIO_P1_15
+#define LED RPI_GPIO_P1_18
+
+void end();
 
 int main()
 {
   if(!bcm2835_init()) return 1;
   bcm2835_gpio_fsel(LED, BCM2835_GPIO_FSEL_OUTP);
 
-  printf("If you type 'y', LED will flash, else it won't: ");
-  char c = getchar();
-
-  if(c == 'y') {
+  int place;
+  printf("Enter 1 (flase), or 0 (true)..\nIf true, led will flash.\n");
+  place = getchar();
+  if (place == '0') {
+    printf("True, flashing led for 3 seconds...\n");
     bcm2835_gpio_set(LED);
-    printf("You typed 'y', LED on for 3 seconds\n");
     delay(3000);
     bcm2835_gpio_clr(LED);
-    return(0);
-  } else {
-      printf("Didn't get y, no flash... Exiting\n");
-      return(0);
+    printf("Exiting..\n");
+    end();
   }
+  else if (place == '1') {
+    printf("False, no flash. Exiting..\n");
+    end();
+  }
+  else {
+    printf("Error: Didn't get expected '1' or '0'.\nExiting..\n");
+    end();
+  }
+
+}
+
+
+void end() {
   bcm2835_close();
+  exit(0);
 }
