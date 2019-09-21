@@ -10,6 +10,7 @@
 
 // include personal header files for your program: "file.h"
 #include "header-files/newline.h"
+#include "header-files/hello-header.h"
 
 // include system header files as: <file.h>
 #include <stdio.h>
@@ -23,5 +24,7 @@ void main()
   printf("2 newlines above\n");
   newline();newline();newline();
   printf("3 newlines above\n");
+  header_location();
+  hello_headers();
   exit(0);
 }

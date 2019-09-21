@@ -4,20 +4,22 @@
 
 int main()
 {
-  char* file = "file.txt";
-  FILE *fp;
-  char str[LEN];
+  char* file_name = "file.txt";
+  FILE *file_pointer;
+  char string_buffer[LEN];
 
-  fp = fopen(file, "r");
-  if (fp == NULL) {
+  file_pointer = fopen(file_name, "r");
+  if (file_pointer == NULL) {
     printf("No file named 'file.txt' in this directory!\n");
     return(1);
   }
 
-  while (fgets(str, LEN, fp) != NULL) {
-    printf("%s", str);
+  // fgets declaration:
+  // char *fgets(char *str_to_read, int max_char_in_read_array, FILE *stream_to_read_from)
+  while (fgets(string_buffer, LEN, file_pointer) != NULL) {
+    printf("%s", string_buffer);
   }
 
-  fclose(fp);
+  fclose(file_pointer);
   return(0);
 }
