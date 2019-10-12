@@ -1,14 +1,14 @@
-/* ------btn-action-gtk2.c-----
+/* ------gtk-btn-action.c-----
    Some observations:
    Something like 'GtkWidget()' (the capitals) seems like A whole class similar to java.
    gtk_init() and gtk_container_add() are like functions of A class.
    GtkWidget is usable as parent(before, inherits properties) of GTK_CONTAINER in the API heirarchy.
 */
 #include <gtk/gtk.h>
-
 // parameters for this function could be (GtkWidget *widget, gpointer ptr)
 void my_function(GtkWidget *widget1, gpointer ptr1) {
-  printf("This text would have shown after button click, calling my function...\n"); // c standard functions (printf) still usable even under GTK loop
+  printf("This text would have shown after button click, calling my function...\n"); // c standard functions (at stdout) still usable even under GTK loop
+                                                                                     // probably can not print from widgets. Test.
 }
 void end_program(GtkWidget *widget2, gpointer ptr2) {
   gtk_main_quit(); // Gtk function that ends gtk_main() loop.
