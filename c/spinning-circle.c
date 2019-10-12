@@ -8,11 +8,11 @@ int main() {
 
   for (int z = 0; z < 3; z++) { // this makes the actual loop spin more than once
 
-    for (int x = 0; x < 5; x++) { // this is the actual spinning animation loop
+    for (int x = 0; x < 4; x++) { // this is the actual spinning animation loop
       fflush(stdout); // clears at least that character space.
       char y = arr[x];  // a new printable variable will cycle through all of the array characters
       printf("\b%c", y); // clear, then print y's character every loop
-      usleep(200000); // gives a break so the characters can slowly appear to spin
+      usleep(200000); // milliseconds break so the characters can slowly appear to spin
     }
 
   }
