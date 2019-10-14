@@ -10,7 +10,7 @@
 int main(int argc, char *argv[])
 {
   if (argc > 1) {
-    printf("There was an argument(args greater than 1)\n");
+    printf("There was 1 or more arguments.\n");
   } else { // no other possibility for else if. Mathmatically impossible.
       printf("No arguments\n");
   }
