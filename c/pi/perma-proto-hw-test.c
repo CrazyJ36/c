@@ -4,6 +4,7 @@
 
 int leds();
 int buzzer();
+int buttons();
 
 int main(int argc, char *argv[]) {
   if (!bcm2835_init()) return(1);
@@ -20,7 +21,7 @@ int main(int argc, char *argv[]) {
     leds();
   } else if (choice_buttons == 0) {
     printf("Test buttons.. push any..\n");
-    //buttons();
+    buttons();
   } else if (choice_buzzer == 0) {
     printf("Testing buzzer..\n");
     buzzer();
@@ -58,6 +59,24 @@ int buzzer() {
     delay(5);
     bcm2835_gpio_write(pin, LOW);
     delay(5);
+  }
+  return 0;
+}
+
+int buttons() {
+  //int btns[] = {23, 27, 22, 25, 9, 5};
+  int btn = 23;
+//  for (int inc = 0; inc < sizeof(btns); inc++) {
+//    bcm2835_gpio_fsel(btns[inc], BCM2835_GPIO_FSEL_INPT);
+//    bcm2835_gpio_set_pud(btns[inc], BCM2835_GPIO_PUD_UP);
+//  }
+  bcm2835_gpio_fsel(btn, BCM2835_GPIO_FSEL_INPT);
+  bcm2835_gpio_set_pud(btn, BCM2835_GPIO_PUD_UP);
+
+  while (1) {
+    int value = bcm2835_gpio_lev(btn);
+    printf("button1 state: %d", value);
+    delay(100);
   }
   return 0;
 }

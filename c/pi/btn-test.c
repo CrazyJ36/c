@@ -2,7 +2,7 @@
 #include <stdio.h>
 
  // enter buttons' gpio number here
-#define BTN 5  // btn1 on perma-proto1
+#define BTN 23  // btn1 on perma-proto1
 
 int main(int argc, char **argv) {
   if (!bcm2835_init()) return 1;
@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
   while (1) {
    int value = bcm2835_gpio_lev(BTN);
    printf("Press chosen btn, 1 is off(not pressed) and 0 is on: %d\n", value);
-   delay(100);
+   delay(200);
   }
 
   bcm2835_close();
