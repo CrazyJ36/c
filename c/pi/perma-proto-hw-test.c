@@ -70,26 +70,13 @@ int buttons() {
     bcm2835_gpio_fsel(btns[inc], BCM2835_GPIO_FSEL_INPT);
     bcm2835_gpio_set_pud(btns[inc], BCM2835_GPIO_PUD_UP);
   }
-  while (1) {
-    if ( bcm2835_gpio_lev(btns[0]) == 0 ) {
-      printf("button 1\n");
-    } else if ( bcm2835_gpio_lev(btns[1]) == 0 ) {
-        printf("button 2\n");
-    } else if ( bcm2835_gpio_lev(btns[2]) == 0 ) {
-        printf("button 3\n");
-    } else if ( bcm2835_gpio_lev(btns[3]) == 0 ) {
-        printf("button 4\n");
-    } else if ( bcm2835_gpio_lev(btns[4]) == 0 ) {
-        printf("button 5\n");
-    } else if ( bcm2835_gpio_lev(btns[5]) == 0 ) {
-        printf("button 6\n");
-    } else if ( bcm2835_gpio_lev(btns[6]) == 0 ) {
-        printf("button 7\n");
-    } else {
-        printf("Nothing..\n");
+  printf("Press buttons in order of left to right...\n");
+  for (int inc = 0; inc < sizeof(btns); inc++) {
+    while (bcm2835_gpio_lev(btns[inc]) != 0) {
+      printf("Waiting for button %d...\n", btns[inc]);
+      delay(200);
     }
-
-    delay(200);
   }
+  printf("Done.\n");
   return 0;
 }
