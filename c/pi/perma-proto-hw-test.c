@@ -64,19 +64,32 @@ int buzzer() {
 }
 
 int buttons() {
-  //int btns[] = {23, 27, 22, 25, 9, 5};
-  int btn = 23;
-//  for (int inc = 0; inc < sizeof(btns); inc++) {
-//    bcm2835_gpio_fsel(btns[inc], BCM2835_GPIO_FSEL_INPT);
-//    bcm2835_gpio_set_pud(btns[inc], BCM2835_GPIO_PUD_UP);
-//  }
-  bcm2835_gpio_fsel(btn, BCM2835_GPIO_FSEL_INPT);
-  bcm2835_gpio_set_pud(btn, BCM2835_GPIO_PUD_UP);
+  int btns[] = {23, 27, 22, 25, 9, 5, 8};
 
+  for (int inc = 0; inc < sizeof(btns); inc++) {
+    bcm2835_gpio_fsel(btns[inc], BCM2835_GPIO_FSEL_INPT);
+    bcm2835_gpio_set_pud(btns[inc], BCM2835_GPIO_PUD_UP);
+  }
   while (1) {
-    int value = bcm2835_gpio_lev(btn);
-    printf("button1 state: %d", value);
-    delay(100);
+    if ( bcm2835_gpio_lev(btns[0]) == 0 ) {
+      printf("button 1\n");
+    } else if ( bcm2835_gpio_lev(btns[1]) == 0 ) {
+        printf("button 2\n");
+    } else if ( bcm2835_gpio_lev(btns[2]) == 0 ) {
+        printf("button 3\n");
+    } else if ( bcm2835_gpio_lev(btns[3]) == 0 ) {
+        printf("button 4\n");
+    } else if ( bcm2835_gpio_lev(btns[4]) == 0 ) {
+        printf("button 5\n");
+    } else if ( bcm2835_gpio_lev(btns[5]) == 0 ) {
+        printf("button 6\n");
+    } else if ( bcm2835_gpio_lev(btns[6]) == 0 ) {
+        printf("button 7\n");
+    } else {
+        printf("Nothing..\n");
+    }
+
+    delay(200);
   }
   return 0;
 }

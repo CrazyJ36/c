@@ -14,12 +14,12 @@ int main(int argc, char **argv) {
      Also this setting may be necessary when using
      these types of buttons without resistor,
      or may not matter. See what works and SET ACCORDINGLY */
-  //bcm2835_gpio_set_pud(BTN, BCM2835_GPIO_PUD_UP);
-
+  bcm2835_gpio_set_pud(BTN, BCM2835_GPIO_PUD_UP);
+  printf("Press button 1...\n");
   while (1) {
    int value = bcm2835_gpio_lev(BTN);
-   printf("Press chosen btn, 1 is off(not pressed) and 0 is on: %d\n", value);
-   delay(200);
+   printf("1 off, 0 on: %d\n", value);
+   delay(400);
   }
 
   bcm2835_close();
