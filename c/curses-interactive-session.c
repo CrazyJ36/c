@@ -7,7 +7,7 @@
 - endwin(); must be used to end the curses screen session.
 */
 
- 
+
 #include <stdio.h>
 #include <ncurses.h> // or curses.h, ncurses.h is symlinked to curses.h
 
@@ -17,7 +17,8 @@ int main()
   printw("Welcome to curses... Press any key to continue."); // printw() - prints to the window
   refresh(); // refresh to show new data from before
   getch(); // get any key
-  clear(); // clear text form the entire curses window
+  clear(); // clear text from the entire curses window
+  // This does not create A new curses window, simply re-make stdscr with new content. One way of doing this.
   printw("New 'page'. press any key to quit"); // make another 'view'. there can be 'pages' this way
   refresh(); // refresh again to show new stuff
   getch();
