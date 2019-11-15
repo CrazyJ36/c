@@ -64,8 +64,9 @@ int buzzer() {
 }
 
 int buttons() {
-  int btns[] = {23, 27, 22, 25, 9, 5, 8};
+//  int btns[] = {23, 27, 22, 25, 9, 5, 8};
 
+/*
   for (int inc = 0; inc < sizeof(btns); inc++) {
     bcm2835_gpio_fsel(btns[inc], BCM2835_GPIO_FSEL_INPT);
     bcm2835_gpio_set_pud(btns[inc], BCM2835_GPIO_PUD_UP);
@@ -77,6 +78,14 @@ int buttons() {
       delay(200);
     }
   }
+*/
+
+  /* You can use the backshlash \ line delimiter in C as
+   *  in python.
+   */
+  printf("Buttons don't work reliably with \
+\nbcm2835 and soft buttons. Function Disabled.\n");
+
   printf("Done.\n");
   return 0;
 }
