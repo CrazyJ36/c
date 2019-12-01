@@ -11,7 +11,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             DestroyWindow(hWnd); break;
         case WM_DESTROY:
             PostQuitMessage(0); break;
-		// This next case section can be replaced by 'wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);' in register window below after 'WNDCLASSEX wc;'
+		// This next case section can be replaced by 'wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);'
+        // in register window below after 'WNDCLASSEX wc;'
 		case WM_PAINT:
 		    PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
