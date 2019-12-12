@@ -1,5 +1,5 @@
 /* Build with 64 arch on 64bit windows:
-   cl btn-in-window_edit.c /link User32.LIB
+   cl multiple_buttons.c /link User32.LIB
 */
 
 #include <windows.h>
@@ -52,17 +52,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     RegisterClassEx(&wc);
 
     // Create A Window
-    HWND hWnd = CreateWindowEx(0, mClassName, "Title1", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 512, 248, NULL, NULL, hInstance, NULL);
+    HWND hWnd = CreateWindowEx(0, mClassName, "Window Title", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 512, 248, NULL, NULL, hInstance, NULL);
+
+    // instantiate buttons linked to ids.
     HWND hWndButton1 = CreateWindow("BUTTON", "Button1", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 10, 86, 32, hWnd, (HMENU)CLICKED1, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
 	HWND hWndButton2 = CreateWindow("BUTTON", "Button2", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 100, 10, 86, 32, hWnd, (HMENU)CLICKED2, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
-    // do stuff on btn click using BS_COMMANDLINK above.
+    // Also, check the ability to do stuff on btn click using BS_COMMANDLINK above.
 	
 	// Check CreateWindow success
     if(hWnd == NULL) return 0;
 
 	// Show the window
     ShowWindow(hWnd, nCmdShow);
-    
+
     // Message Loop
 	MSG Msg;
     while(GetMessage(&Msg, NULL, 0, 0)) {
