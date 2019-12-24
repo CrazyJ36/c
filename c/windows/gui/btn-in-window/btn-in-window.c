@@ -39,9 +39,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     RegisterClassEx(&wc);
     // Create A Window
     HWND hWnd = CreateWindowEx(0, mClassName, "Title", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 512, 248, NULL, NULL, hInstance, NULL);
+    
     // Here WM_COMMAND is A general command message, or define your own multiple commands with ints.
-    HWND hWndButton = CreateWindow("BUTTON", "Button", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 10, 86, 32, hWnd, (HMENU)WM_COMMAND, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
-	// do stuff on btn click using BS_COMMANDLINK above.
+    HWND hWndButton = CreateWindow("BUTTON", "Button", 
+        WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+        10, 10, 86, 32, hWnd, NULL, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
 	
 	// Check CreateWindow success
     if(hWnd == NULL) return 0;

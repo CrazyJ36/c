@@ -6,6 +6,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             DestroyWindow(hWnd); break;
         case WM_DESTROY:
             PostQuitMessage(0); break;
+        case WM_COMMAND:
+            // Changing window title
+            SetWindowText(hWnd, "New Window Title");
+
         default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
     return 0;
@@ -22,12 +26,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.lpszClassName = mWinClassName;
+    wc.hbrBackground = (HBRUSH) (COLOR_WINDOW);
     RegisterClassEx(&wc);
 
     HWND hWnd = CreateWindowEx(0, 
         mWinClassName, "Window Title", WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+        CW_USEDEFAULT, CW_USEDEFAULT, 386, 128,
         NULL, NULL, hInstance, NULL);
+
+    HWND hWndButton = CreateWindow("BUTTON", "Title", WS_VISIBLE | WS_CHILD,
+        8, 8, 70, 25, hWnd, NULL, hInstance, NULL);
 
     ShowWindow(hWnd, nCmdShow);
 
