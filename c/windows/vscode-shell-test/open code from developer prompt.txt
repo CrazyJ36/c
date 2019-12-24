@@ -1,0 +1,6 @@
+vscode in windows has a 'c programming mode'
+when in your source directory, type:
+> code .
+
+this opens vscode using the vs build tools
+developer command prompt.

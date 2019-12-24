@@ -1,6 +1,4 @@
-#include <stdio.h>
 #include <windows.h>
-
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch(uMsg) {
@@ -8,43 +6,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             DestroyWindow(hWnd); break;
         case WM_DESTROY:
             PostQuitMessage(0); break;
-		case WM_PAINT:
-		    PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(hWnd, &ps);
-			FillRect(hdc, &ps.rcPaint, (HBRUSH) (COLOR_WINDOW+1));
-			EndPaint(hWnd, &ps); break;
-		case WM_COMMAND:     
-            // Show the use of clib system() from gui.
-		    system("explorer.exe");
         default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
     return 0;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    
-    const char mClassName[9] = "wndClass";
-    
+    const char mWinClassName[9] = "wndClass";
+    MSG Msg;
 	WNDCLASSEX wc;
+
 	wc.lpfnWndProc = WndProc;
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.hInstance = hInstance;
     wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.lpszClassName = mClassName;
+    wc.lpszClassName = mWinClassName;
     RegisterClassEx(&wc);
-    
-    HWND hWnd = CreateWindowEx(0, mClassName, "Explorer Launcher", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 512, 248, NULL, NULL, hInstance, NULL);
-    HWND hWndButton = CreateWindow("BUTTON", "Launch", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 10, 86, 32, hWnd, (HMENU)WM_COMMAND, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
-	
-    if(hWnd == NULL) return 0;
+
+    HWND hWnd = CreateWindowEx(0, 
+        mWinClassName, "Window Title", WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+        NULL, NULL, hInstance, NULL);
 
     ShowWindow(hWnd, nCmdShow);
 
-	MSG Msg;
     while(GetMessage(&Msg, NULL, 0, 0)) {
         TranslateMessage(&Msg);
         DispatchMessage(&Msg);
     }
-    return Msg.wParam;
 }
