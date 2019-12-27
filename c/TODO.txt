@@ -1,0 +1,2 @@
+put all programs in directory describing what they do,
+build with directories for linux and windows.
