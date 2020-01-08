@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 void hello_headers() {
-  printf("Hello World!\n");
+  printf("This text is hello_headers() function.\n");
 }
 
 void header_location() {

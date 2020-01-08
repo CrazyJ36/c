@@ -1,3 +1,0 @@
-C:/Users/crazy/development/c/c/clion-test/cmake-build-debug/CMakeFiles/clion_test.dir
-C:/Users/crazy/development/c/c/clion-test/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/crazy/development/c/c/clion-test/cmake-build-debug/CMakeFiles/rebuild_cache.dir

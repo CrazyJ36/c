@@ -21,9 +21,13 @@ void main()
   printf("testing custom newline.h header file which does:\nprintf(\"\\n\"); as newline();\n");
   newline();  // this function is from another file.
   newline();
+
   printf("2 newlines above\n");
   newline();newline();newline();
   printf("3 newlines above\n");
+
+  printf("\n");
+
   header_location();
   hello_headers();
   exit(0);
