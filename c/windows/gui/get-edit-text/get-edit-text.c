@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#define BUTTON1 1
+
 // These initialize A string buffer to get editControl to global string
 char STRLINE[32] = "";
 HWND hWndEdit;
@@ -7,12 +9,14 @@ HWND hWndEdit;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch(uMsg) {
         case WM_COMMAND:
-            
-            // get current editControl text and use it
-            GetWindowText(hWndEdit, STRLINE, 32);
-            MessageBox(hWnd, STRLINE, "What you entered", MB_OK);
+            switch(wParam) {
+                case(BUTTON1):
+                // get current editControl text and use it
+                GetWindowText(hWndEdit, STRLINE, 32);
+                MessageBox(hWnd, STRLINE, "What you entered", MB_OK);
+                break;
+            }
             break;
-
         case WM_CLOSE:
             DestroyWindow(hWnd);
             break;
@@ -48,7 +52,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         hWnd, NULL, hInstance, NULL);
     HWND hWndButton = CreateWindow("BUTTON", "Show", 
         WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-        10, 30, 50, 20, hWnd, (HMENU)1, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
+        10, 30, 50, 20, hWnd, (HMENU)BUTTON1, (HINSTANCE)GetWindow(hWnd, GWL_EXSTYLE), NULL);
 
     // globally defined earier, finish setting up editControl. "EDIT" makes this an edittext 'widget'
     // DT_SINGLELINE flag is blanked(password), EM_GETLINE allows multiline.
