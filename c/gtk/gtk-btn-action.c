@@ -5,6 +5,8 @@
    GtkWidget is usable as parent(before, inherits properties) of GTK_CONTAINER in the API heirarchy.
 */
 #include <gtk/gtk.h>
+#include <glib-2.0/glib.h>
+
 // parameters for this function could be (GtkWidget *widget, gpointer ptr)
 void my_function(GtkWidget *widget1, gpointer ptr1) {
   printf("This text would have shown after button click, calling my function...\n"); // c standard functions (at stdout) still usable even under GTK loop
