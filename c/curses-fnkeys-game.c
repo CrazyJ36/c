@@ -1,7 +1,8 @@
 #include <ncurses.h>
-/* TODO not echo chars and respond only if
-   getch is arrow
+/* TODO not echo char and respond only if getch is arrow, or
+   show 'player missed' if wrong button was pressed.
 */
+
 int main() {
   initscr(); // start curses
 
@@ -10,7 +11,7 @@ int main() {
      if this is not set, the program would end. */
   keypad(stdscr, TRUE);
 
-  printw("Type an arrow key.\n"); // rules of 'game'
+  printw("This is A multiplayer game in which two people can press an arrow key. First to 10 presses wins.\n"); // rules of 'game'
 
   refresh(); // refresh screen to show instructions
 
@@ -24,7 +25,8 @@ int main() {
     switch(ch) { // get left or right button as 'player turn'
       case KEY_LEFT:
         left = left + 1; // increase player score
-        break; /* either this(left) or right. either or, should break to return which one happened (like latch vs momentary). switch will loop again to get next 'turn'. */
+        break; /* either this(left) or right. either or, should break to return which one happened
+                  (like latch vs momentary). switch will loop again to get next 'turn'. */
       case KEY_RIGHT:
         right = right + 1;
         break;

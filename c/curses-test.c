@@ -11,10 +11,10 @@ int main()
   curs_set(FALSE);  // hide blinking cursor
 
   clear();  // clear the current program progress
-  mvprintw(0, 0, "Hello, World"); // (coordinate x, coordinate y, text)
+  mvprintw(0, 0, "Hello from NCurses.\nPress any key to exit."); // (coordinate x, coordinate y, text)
   refresh(); // refresh the screen to show newer code like the line above
-  sleep(3);  // sleep to keep showing text
+  getchar();  // sleep to keep showing text
   endwin();  // end the ncurses windows to return to normal terminal
-  system("clear");
+  // could do system("clear") to clear the screen after ncurses finishes.
   return(0);
 }
