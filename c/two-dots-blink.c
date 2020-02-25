@@ -4,6 +4,7 @@
 // Seems A reliable way to clear line is with '\b' and fflush(stdout) combined.
 void main() {
   system("setterm -cursor off");
+  printf("\n");
   fflush(stdout);
   for (int z = 0; z < 6; z++) {
     // Some fflush() and printf("\b\b") here can be removed
