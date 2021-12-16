@@ -2,7 +2,7 @@
 #include <stdio.h>
 
  // enter buttons' gpio number here
-#define BTN 23  // btn1 on perma-proto1
+#define BTN 22  // btn1 on perma-proto1
 
 int main(int argc, char **argv) {
   if (!bcm2835_init()) return 1;
