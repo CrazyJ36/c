@@ -26,7 +26,10 @@ int main(int argc, char **argv) {
      these types of buttons without resistor,
      or may not matter. See what works and set accordingly.
      In this case. some btns were stuck on before the following. */
-  //bcm2835_gpio_set_pud(BTN2, BCM2835_GPIO_PUD_UP);
+  bcm2835_gpio_set_pud(BTN1, BCM2835_GPIO_PUD_UP);
+  bcm2835_gpio_set_pud(BTN2, BCM2835_GPIO_PUD_UP);
+  bcm2835_gpio_set_pud(BTN3, BCM2835_GPIO_PUD_UP);
+  bcm2835_gpio_set_pud(BTN4, BCM2835_GPIO_PUD_UP);
 
   // Instructions
   printf("Press one of four buttons and watch led...\n");
