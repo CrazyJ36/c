@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <bcm2835.h>
 
-#define BTN 25
+#define BTN 27
 
 int main() {
   if (!bcm2835_init()) return 1;
