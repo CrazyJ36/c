@@ -4,9 +4,9 @@ int main() {
   if (!bcm2835_init()) return(1);
 
   // Select (GPIO format) pin number and set it's desired function to output(or input)
-  bcm2835_gpio_fsel(27, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(4, BCM2835_GPIO_FSEL_OUTP);
   // this function sets pin to high by default
-  bcm2835_gpio_set(27);
+  bcm2835_gpio_set(4);
 
   return(0);
 }
