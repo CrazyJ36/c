@@ -5,6 +5,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#define WIDTH 128
+#define HEIGHT 32
+
+static unsigned char array[1024];
+
 void writeI2C(unsigned char* data, int bytes) {
   int i2cAddress = 0x3C;
   int i2cHandle;
@@ -27,29 +32,20 @@ void writeI2C(unsigned char* data, int bytes) {
   }
 }
 
-
 int main() {
 
-  char draw_letter1[5] = {0x40, 0x7e, 0x42, 0x42, 0x42}; // makes A 'C' at top left.
-  writeI2C(draw_letter1, 5);
+  char init[26] = {0x00, 0xAE, 0xD5, 0x80,0xA8, 0x1F, 0xD3, 0x00, 0x40, 0x8D, 0x14, 0xA1, 0xC8, 0xDA, 0x02, 0x81, 0x8F, 0xD9, 0xF1, 0xDB, 0x40, 0xA4, 0xA6, 0x20, 0x00, 0xAF};
+  writeI2C(init, 26);
 
-  // Using 2 bytes, drawing A 'space' at top left:
-  char draw_letter2[3] = {0x40, 0x00, 0x00};
-  writeI2C(draw_letter2, 3);
-  // Using 2 bytes you can draw an exclamation point by using {0x40, 0x5E}
-  //   in that case, 0x40 appears to be the top-left pixel.
-  char draw_letter3[2] = {0x40, 0x5E};
-  writeI2C(draw_letter3, 2);
+  char start[4] = {0x00, 0x00, 0x10, 0x40};
+  writeI2C(start, 4);
 
+  char dataStream[1] = {0x40};
+  for(unsigned short q=0; q<(WIDTH*HEIGHT/8); q++) {
+    writeI2C(dataStream, 1);
+  }
 
-  // Using 2 bytes, drawing A 'space':
-  char draw_letter4[3] = {0x40, 0x00, 0x00};
-  writeI2C(draw_letter4, 3);
-  // Using 2 bytes, drawing A 'space':
-  char draw_letter5[3] = {0x40, 0x00, 0x00};
-  writeI2C(draw_letter5, 3);
-
-  // dot
-  char draw_letter6[2]= {0x40, 0x02};
-  writeI2C(draw_letter6, 2);
+  int stuff;
+  stuff = 50;
+  writeI2C(stuff, 1);
 }
