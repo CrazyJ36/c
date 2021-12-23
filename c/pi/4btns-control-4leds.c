@@ -5,39 +5,39 @@
 volatile sig_atomic_t stop;
 void signal_handler(int signum) { stop = 1; }
 
- // enter gpio numbers here
-#define LED 16
-#define BTN1 22  // btn1 is soldered onto perma-proto(from left to right) at GPIO pin 22.
-#define BTN2 24
-#define BTN3 25
-#define BTN4 5
+#define LED1 4
+#define LED2 18
+#define LED3 6
+#define LED4 13
+#define BTN1 17
+#define BTN2 25
+#define BTN3 24
+#define BTN4 16
 
 int main(int argc, char **argv) {
 
   // check if libbcm2835 works. If not, exit.
   if (!bcm2835_init()) return 1;
 
-  // Select LED to be output
-  bcm2835_gpio_fsel(LED, BCM2835_GPIO_FSEL_OUTP);
+  // Select LEDs to be output
+  bcm2835_gpio_fsel(LED1, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(LED2, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(LED3, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(LED4, BCM2835_GPIO_FSEL_OUTP);
   // Select buttons to be an input
   bcm2835_gpio_fsel(BTN1, BCM2835_GPIO_FSEL_INPT);
   bcm2835_gpio_fsel(BTN2, BCM2835_GPIO_FSEL_INPT);
   bcm2835_gpio_fsel(BTN3, BCM2835_GPIO_FSEL_INPT);
   bcm2835_gpio_fsel(BTN4, BCM2835_GPIO_FSEL_INPT);
 
-  /* Pull-up resistor mode may not be necessary
-     with adafruit soft buttons and resistor.
-     Also this setting may be necessary when using
-     these types of buttons without resistor,
-     or may not matter. See what works and set accordingly.
-     In this case. some btns were stuck on before the following. */
-  bcm2835_gpio_set_pud(BTN1, BCM2835_GPIO_PUD_UP);
-  bcm2835_gpio_set_pud(BTN2, BCM2835_GPIO_PUD_UP);
-  bcm2835_gpio_set_pud(BTN3, BCM2835_GPIO_PUD_UP);
-  bcm2835_gpio_set_pud(BTN4, BCM2835_GPIO_PUD_UP);
+  /* Setting pull_up_down mode for internal pin resistors may not be necessary. */
+  //bcm2835_gpio_set_pud(BTN1, BCM2835_GPIO_PUD_UP);
+  //bcm2835_gpio_set_pud(BTN2, BCM2835_GPIO_PUD_UP);
+  //bcm2835_gpio_set_pud(BTN3, BCM2835_GPIO_PUD_UP);
+  //bcm2835_gpio_set_pud(BTN4, BCM2835_GPIO_PUD_UP);
 
   // Instructions
-  printf("Press one of four buttons and watch led. CTRL-C to exit.\n");
+  printf("Press one of four buttons, corresponding leds will light. CTRL-C to exit.\n");
 
   signal(SIGINT, signal_handler);
   // Read button state on loop
@@ -51,9 +51,9 @@ int main(int argc, char **argv) {
       int  led_count_btn1 = 0;
       while(led_count_btn1 < 1) {
         printf("btn1\n");
-        bcm2835_gpio_write(LED, HIGH);
+        bcm2835_gpio_write(LED1, HIGH);
         delay(150);
-        bcm2835_gpio_write(LED, LOW);
+        bcm2835_gpio_write(LED1, LOW);
         led_count_btn1++;
       }
     }
@@ -61,9 +61,9 @@ int main(int argc, char **argv) {
       printf("btn2\n");
       int led_count_btn2 = 0;
       while (led_count_btn2 < 2) {
-        bcm2835_gpio_write(LED, HIGH);
+        bcm2835_gpio_write(LED2, HIGH);
         delay(150);
-        bcm2835_gpio_write(LED, LOW);
+        bcm2835_gpio_write(LED2, LOW);
         delay(150);
         led_count_btn2++;
       }
@@ -72,9 +72,9 @@ int main(int argc, char **argv) {
       printf("btn3\n");
       int led_count_btn3 = 0;
       while (led_count_btn3 < 3) {
-        bcm2835_gpio_write(LED, HIGH);
+        bcm2835_gpio_write(LED3, HIGH);
         delay(150);
-        bcm2835_gpio_write(LED, LOW);
+        bcm2835_gpio_write(LED3, LOW);
         delay(150);
         led_count_btn3++;
       }
@@ -83,9 +83,9 @@ int main(int argc, char **argv) {
       printf("btn4\n");
       int led_count_btn4 = 0;
       while (led_count_btn4 < 4) {
-        bcm2835_gpio_write(LED, HIGH);
+        bcm2835_gpio_write(LED4, HIGH);
         delay(150);
-        bcm2835_gpio_write(LED, LOW);
+        bcm2835_gpio_write(LED4, LOW);
         delay(150);
         led_count_btn4++;
       }

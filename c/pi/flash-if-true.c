@@ -4,7 +4,7 @@
 #include <bcm2835.h>
 #include <stdlib.h> // for exit()
 
-#define LED RPI_GPIO_P1_18
+#define LED 4
 
 void end();
 
@@ -14,7 +14,7 @@ int main()
   bcm2835_gpio_fsel(LED, BCM2835_GPIO_FSEL_OUTP);
 
   int place;
-  printf("Enter 1 (flase), or 0 (true)..\nIf true, led will flash.\n");
+  printf("Enter 1 (flase) or 0 (true), then press enter.\nIf true, led will flash.\n");
   place = getchar();
   if (place == '0') {
     printf("True, flashing led for 3 seconds...\n");
