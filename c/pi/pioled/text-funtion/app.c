@@ -16,15 +16,16 @@ void initDisplay();
 void writeI2C(unsigned char* data, int bytes);
 
 // displayLines was 8
-unsigned char displayLines[1][128];
+unsigned char displayLines[32][128];
 int i2cHandle = -1;
 int i2cAddress = 0x3c;
-unsigned char initSequence[26] = {0x00, 0xAE, 0xD5,
-    0x80,0xA8, 0x1F, 0xD3, 0x00, 0x40, 0x8D, 0x14, 0xA1, 0xC8, 0xDA, 0x02, 0x81, 0x8F, 0xD9, 0xF1, 0xDB, 0x40,
-    0xA4, 0xA6, 0x20, 0x00, 0xAF};
-unsigned char setFullRange[7] = {0x00,0x21,0x00,0x7F,0x22,0x00,0x07};
+// unsigned char setFullRange[7] = {0x00,0x21,0x00,0x7F,0x22,0x00,0x07};
+unsigned char setFullRange[2] = {0x40, 0x21};
 
 void initDisplay() {
+  unsigned char initSequence[26] = {0x00, 0xAE, 0xD5,
+    0x80,0xA8, 0x1F, 0xD3, 0x00, 0x40, 0x8D, 0x14, 0xA1, 0xC8, 0xDA, 0x02, 0x81, 0x8F, 0xD9, 0xF1, 0xDB, 0x40,
+    0xA4, 0xA6, 0x20, 0x00, 0xAF};
   writeI2C(initSequence, 26);
 }
 
@@ -41,9 +42,8 @@ void textDisplay(const char *message) {
 }
 
 void clearDisplay() {
-  // was i < 1
-  for(int i=0; i<1; i++) {
-    for(int j=0; j<128; j++) {
+  for(int i=0; i < 32; i++) {
+    for(int j=0; j < 128; j++) {
       displayLines[i][j] = 0;
     }
   }
@@ -73,15 +73,13 @@ void setDisplayRange(int line) {
 // -1 = full range
 // 0..7 = line
   if(line == -1) {
-    // was setFullRange, 7
-    writeI2C(setFullRange, 1);
+    writeI2C(setFullRange, 2);
   }
 }
 
 void updateDisplayFull() {
  setDisplayRange(-1);
-  // line < 4 was line < 8
-  for(int line=0; line < 1; line++) {
+  for(int line=0; line < 8; line++) {
     unsigned char buffer[129] = {0};
     buffer[0] = 0x40;
     for(int i=0; i < 128; i++) {
@@ -112,7 +110,7 @@ void writeI2C(unsigned char* data, int bytes) {
 }
 
 int main() {
-  textDisplay("HELLO WORLD"); // capital only
+  textDisplay("the quick brown for jumps over the lazy dog"); // capital only
   sleep(1);
   clearDisplay();
   return 0;

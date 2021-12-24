@@ -30,11 +30,11 @@ int main(int argc, char **argv) {
   bcm2835_gpio_fsel(BTN3, BCM2835_GPIO_FSEL_INPT);
   bcm2835_gpio_fsel(BTN4, BCM2835_GPIO_FSEL_INPT);
 
-  /* Setting pull_up_down mode for internal pin resistors may not be necessary. */
-  //bcm2835_gpio_set_pud(BTN1, BCM2835_GPIO_PUD_UP);
-  //bcm2835_gpio_set_pud(BTN2, BCM2835_GPIO_PUD_UP);
-  //bcm2835_gpio_set_pud(BTN3, BCM2835_GPIO_PUD_UP);
-  //bcm2835_gpio_set_pud(BTN4, BCM2835_GPIO_PUD_UP);
+  /* Turn on/off internal resistors as input may read some voltage, which is not what we want. */
+  bcm2835_gpio_set_pud(BTN1, BCM2835_GPIO_PUD_UP);
+  bcm2835_gpio_set_pud(BTN2, BCM2835_GPIO_PUD_UP);
+  bcm2835_gpio_set_pud(BTN3, BCM2835_GPIO_PUD_UP);
+  bcm2835_gpio_set_pud(BTN4, BCM2835_GPIO_PUD_UP);
 
   // Instructions
   printf("Press one of four buttons, corresponding leds will light. CTRL-C to exit.\n");

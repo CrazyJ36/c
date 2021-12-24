@@ -3,14 +3,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int led1 = 18; // gpio number, board number is RPI_GPIO_P1_12
-int led2 = 4;
-int led3 = 22;
-int led4 = 23;
+int led1 = 4; // gpio number, board number is RPI_GPIO_P1_12
+int led2 = 18;
+int led3 = 6;
+int led4 = 13;
 int btn1 = 17;
-int btn2 = 27;
+int btn2 = 25;
 int btn3 = 24;
-int btn4 = 5;
+int btn4 = 16;
 int out = BCM2835_GPIO_FSEL_OUTP;
 int in = BCM2835_GPIO_FSEL_INPT;
 
