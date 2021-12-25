@@ -44,17 +44,17 @@ int main(int argc, char *argv[]) {
       currentPixelOff();
       x_pos = x_pos - 1;
     }
-    else if (btn2_lev == 0) {
+    if (btn2_lev == 0) {
       printf("up\n");
       currentPixelOff();
       y_pos = y_pos - 1;
     }
-    else if (btn3_lev == 0) {
+    if (btn3_lev == 0) {
       printf("down\n");
       currentPixelOff();
       y_pos = y_pos + 1;
     }
-    else if (btn4_lev == 0) {
+    if (btn4_lev == 0) {
       printf("right\n");
       currentPixelOff();
       x_pos = x_pos + 1;
