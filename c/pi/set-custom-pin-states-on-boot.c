@@ -5,5 +5,6 @@ int main() {
   bcm2835_gpio_fsel(6, BCM2835_GPIO_FSEL_OUTP);
   bcm2835_gpio_clr(4); // clr= clear or off, sets software gpio number to low
   bcm2835_gpio_clr(6);
+  bcm2835_close();
   return(0);
 }
