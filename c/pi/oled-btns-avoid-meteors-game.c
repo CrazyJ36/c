@@ -67,22 +67,18 @@ int main(int argc, char *argv[]) {
     btn3_lev = bcm2835_gpio_lev(btns[2]);
     btn4_lev = bcm2835_gpio_lev(btns[3]);
     if (btn1_lev == 0) {
-      printf("left\n");
       oledSetPixel(x_pos, y_pos, 0);
       x_pos = x_pos - 1;
     }
     if (btn2_lev == 0) {
-      printf("up\n");
       oledSetPixel(x_pos, y_pos, 0);
       y_pos = y_pos - 1;
     }
     if (btn3_lev == 0) {
-      printf("down\n");
       oledSetPixel(x_pos, y_pos, 0);
       y_pos = y_pos + 1;
     }
     if (btn4_lev == 0) {
-      printf("right\n");
       oledSetPixel(x_pos, y_pos, 0);
       x_pos = x_pos + 1;
     }
