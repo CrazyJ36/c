@@ -13,6 +13,8 @@ int main(int argc, char *argv[]) {
   signal(SIGINT, inthand);
 
   int btns[4] = {17, 25, 24,16};
+  int leds[4] = {4, 18, 6, 13};
+  int led_iter = 0;
   int btn1_lev;
   int btn2_lev;
   int btn3_lev;
@@ -21,7 +23,10 @@ int main(int argc, char *argv[]) {
   int enemy_y = 11;
   int x_pos = 64;
   int y_pos = 16;
+  int buzzer_pin = 21;
+  int buzzer_repeater = 0;
 
+  bcm2835_gpio_fsel(buzzer_pin, BCM2835_GPIO_FSEL_OUTP);
   for(int i = 0; i < 4; i++) {
     bcm2835_gpio_fsel(btns[i], BCM2835_GPIO_FSEL_INPT);
     bcm2835_gpio_set_pud(btns[i], BCM2835_GPIO_PUD_UP);
@@ -29,10 +34,12 @@ int main(int argc, char *argv[]) {
 
   printf("Press Ctrl-c to end game.\n");
 
-  oledWriteString(1, 1,"Avoid enemy box!", FONT_SMALL);
-  delay(500);
+  oledWriteString(1, 1,"Avoid meteors!", FONT_SMALL);
+  delay(600);
   oledFill(0);
-
+  for (led_iter; led_iter < 4; led_iter++) {
+    bcm2835_gpio_fsel(leds[led_iter], BCM2835_GPIO_FSEL_OUTP);
+  }
   int line_right = 0;
   while (line_right < 32) {
     oledSetPixel(127, line_right, 1);
@@ -80,6 +87,13 @@ int main(int argc, char *argv[]) {
       x_pos = x_pos + 1;
     }
     if (x_pos < 1 || x_pos > 126 || y_pos < 1 || y_pos > 30) {
+      while (buzzer_repeater < 2) {
+        bcm2835_gpio_write(buzzer_pin, HIGH);
+        delay(100);
+        bcm2835_gpio_write(buzzer_pin, LOW);
+        delay(100);
+        buzzer_repeater++;
+      }
       oledFill(0);
       printf("Out of bounds. Game over!\n");
       oledWriteString(0, 0, "Out of bounds!", FONT_NORMAL);
@@ -89,38 +103,34 @@ int main(int argc, char *argv[]) {
     oledSetPixel(x_pos, y_pos, 1);
 
     oledSetPixel(enemy_x, enemy_y, 0);
-    if (enemy_x >= 125) {
+    if (enemy_x >= 127) {
       enemy_x = 0;
     }
-    if (enemy_y >= 28) {
-      enemy_y = 0;
+    if (enemy_y >= 31) {
+      enemy_y = 1;
     }
-    if (enemy_x % 2 == 0) {
-      enemy_x++;
-    }
-    else {
-      enemy_x = enemy_x + 3;
-    }
-    if (enemy_y % 2 == 0) {
-      enemy_y++;
-    }
-    else {
-      enemy_y = enemy_y + 3;
-    }
-    oledSetPixel(enemy_x, enemy_y, 1 );
+    enemy_x++;
+    enemy_y++;
     if (enemy_x == x_pos && enemy_y == y_pos ||
         enemy_x == x_pos - 2 && enemy_y == y_pos - 2 ||
         enemy_x == x_pos - 1 && enemy_y == y_pos - 1 ||
         enemy_x == x_pos + 1 && enemy_y == y_pos + 1 ||
         enemy_x == x_pos + 2 && enemy_y == y_pos + 2) {
-      printf("Enemy got you! Game over!\n");
+      printf("Meteor hit you! Game over!\n");
       oledFill(0);
-      oledWriteString(0, 0, "Enemy got you!", FONT_NORMAL);
+      oledWriteString(0, 0, "You're hit!", FONT_NORMAL);
+      led_iter = 0;
+      for (led_iter; led_iter < 4; led_iter++) {
+        bcm2835_gpio_write(leds[led_iter], HIGH);
+        delay(80);
+        bcm2835_gpio_write(leds[led_iter], LOW);
+        delay(80);
+      }
       delay(3000);
       break;
     }
-
-    delay(30);
+    oledSetPixel(enemy_x, enemy_y, 1 );
+    delay(10);
   }
   printf("Exiting...\n");
   oledShutdown();
