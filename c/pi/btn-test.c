@@ -14,6 +14,7 @@ int main() {
   while (1) {
     if ( bcm2835_gpio_lev(BTN) == 0 ) {
       printf("Button pushed.\n");
+      bcm2835_gpio_clr(BTN);
       bcm2835_close();
       return 0;
     }

@@ -10,15 +10,14 @@ int main() {
   bcm2835_gpio_fsel(LED, BCM2835_GPIO_FSEL_OUTP);
   int i = 0;
   int x = 1;
-  // Change LED brightness by alternating on/off time over iterations.
-  for(int i = 0; i < 40; i++) {
+  int j = 0;
+  for(int i = 0; i < 20; i++) {
     bcm2835_gpio_write(LED, HIGH);
-      delay(x - i);
+    delay(x - i);
     bcm2835_gpio_write(LED, LOW);
-      delay(x + 1);
+    delay(x + 1);
     x = x + 1;
   }
-
   bcm2835_close();
   printf("Done\n");
 }
