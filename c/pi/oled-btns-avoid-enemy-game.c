@@ -89,10 +89,10 @@ int main(int argc, char *argv[]) {
     oledSetPixel(x_pos, y_pos, 1);
 
     oledSetPixel(enemy_x, enemy_y, 0);
-    if (enemy_x > 125) {
+    if (enemy_x >= 125) {
       enemy_x = 0;
     }
-    if (enemy_y > 30) {
+    if (enemy_y >= 28) {
       enemy_y = 0;
     }
     if (enemy_x % 2 == 0) {
@@ -105,16 +105,14 @@ int main(int argc, char *argv[]) {
       enemy_y++;
     }
     else {
-      enemy_y = enemy_y + 4;
+      enemy_y = enemy_y + 3;
     }
     oledSetPixel(enemy_x, enemy_y, 1 );
     if (enemy_x == x_pos && enemy_y == y_pos ||
-        enemy_x == x_pos - 3 && enemy_y == y_pos - 3 ||
         enemy_x == x_pos - 2 && enemy_y == y_pos - 2 ||
         enemy_x == x_pos - 1 && enemy_y == y_pos - 1 ||
         enemy_x == x_pos + 1 && enemy_y == y_pos + 1 ||
-        enemy_x == x_pos + 2 && enemy_y == y_pos + 2 ||
-        enemy_x == x_pos + 3 && enemy_y == y_pos + 3 ) {
+        enemy_x == x_pos + 2 && enemy_y == y_pos + 2) {
       printf("Enemy got you! Game over!\n");
       oledFill(0);
       oledWriteString(0, 0, "Enemy got you!", FONT_NORMAL);
