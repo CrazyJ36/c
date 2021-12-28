@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
       oledFill(0);
       printf("Out of bounds. Game over!\n");
       oledWriteString(0, 0, "Out of bounds!", FONT_NORMAL);
-      delay(2000);
+      delay(1000);
       break;
     }
     oledSetPixel(x_pos, y_pos, 1);
@@ -112,7 +112,6 @@ int main(int argc, char *argv[]) {
         enemy_x == x_pos - 1 && enemy_y == y_pos - 1 ||
         enemy_x == x_pos + 1 && enemy_y == y_pos + 1 ||
         enemy_x == x_pos + 2 && enemy_y == y_pos + 2) {
-      printf("Meteor hit you! Game over!\n");
       oledFill(0);
       oledWriteString(0, 0, "You're hit!", FONT_NORMAL);
       led_iter = 0;
@@ -122,16 +121,14 @@ int main(int argc, char *argv[]) {
         bcm2835_gpio_write(leds[led_iter], LOW);
         delay(80);
       }
-      delay(2000);
+      delay(1000);
+      printf("Meteor hit you! Game over!\n");
       break;
     }
     oledSetPixel(enemy_x, enemy_y, 1 );
     delay(10);
   }
   printf("Exiting... Avoid meteors written by CrazyJ36.\n");
-  oledFill(0);
-  oledWriteString(0, 0, "by CrazyJ36", FONT_SMALL);
-  delay(1000);
   oledShutdown();
   bcm2835_close();
   return 0;
