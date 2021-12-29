@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
   int y_pos = 16;
   int buzzer_pin = 21;
   int buzzer_repeater = 0;
+  int score = 0;
 
   bcm2835_gpio_fsel(buzzer_pin, BCM2835_GPIO_FSEL_OUTP);
   for(int i = 0; i < 4; i++) {
@@ -34,7 +35,7 @@ int main(int argc, char *argv[]) {
 
   printf("Press Ctrl-c to end game.\n");
 
-  oledWriteString(1, 1,"Avoid meteors!", FONT_SMALL);
+  oledWriteString(0, 0,"Avoid meteors!", FONT_NORMAL);
   delay(1000);
   oledFill(0);
   for (led_iter; led_iter < 4; led_iter++) {
@@ -82,6 +83,7 @@ int main(int argc, char *argv[]) {
       oledSetPixel(x_pos, y_pos, 0);
       x_pos = x_pos + 1;
     }
+
     if (x_pos < 1 || x_pos > 126 || y_pos < 1 || y_pos > 30) {
       while (buzzer_repeater < 2) {
         bcm2835_gpio_write(buzzer_pin, HIGH);
@@ -92,7 +94,7 @@ int main(int argc, char *argv[]) {
       }
       oledFill(0);
       printf("Out of bounds. Game over!\n");
-      oledWriteString(0, 0, "Out of bounds!", FONT_NORMAL);
+      oledWriteString(0, 0, "Out of bounds!", FONT_SMALL);
       delay(1000);
       break;
     }
@@ -113,7 +115,7 @@ int main(int argc, char *argv[]) {
         enemy_x == x_pos + 1 && enemy_y == y_pos + 1 ||
         enemy_x == x_pos + 2 && enemy_y == y_pos + 2) {
       oledFill(0);
-      oledWriteString(0, 0, "You're hit!", FONT_NORMAL);
+      oledWriteString(0, 0, "You're hit!", FONT_SMALL);
       led_iter = 0;
       for (led_iter; led_iter < 4; led_iter++) {
         bcm2835_gpio_write(leds[led_iter], HIGH);
@@ -126,9 +128,13 @@ int main(int argc, char *argv[]) {
       break;
     }
     oledSetPixel(enemy_x, enemy_y, 1 );
+
     delay(10);
+    score++;
+    printf("Score: %d\n", score);
+
   }
-  printf("Exiting... Avoid meteors written by CrazyJ36.\n");
+  printf("Avoid meteors written by CrazyJ36... Exiting.\n");
   oledShutdown();
   bcm2835_close();
   return 0;
