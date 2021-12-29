@@ -2,6 +2,7 @@
 #include <oled96.h>
 #include <bcm2835.h>
 #include <signal.h>
+#include <string.h>
 
 volatile sig_atomic_t stop;
 void inthand(int signum) {stop = 1;}
@@ -130,11 +131,11 @@ int main(int argc, char *argv[]) {
     oledSetPixel(enemy_x, enemy_y, 1 );
 
     delay(10);
-    score++;
-    printf("Score: %d\n", score);
-
+    score = score + 10;
   }
+  printf("Score: %d!\n", score / 1000);
   printf("Avoid meteors written by CrazyJ36... Exiting.\n");
+  delay(1000);
   oledShutdown();
   bcm2835_close();
   return 0;
