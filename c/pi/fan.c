@@ -45,8 +45,9 @@ int main() {
         bcm2835_gpio_write(PIN, LOW);
       }
     }
+    free(fp);
     pclose(fp);
-    sleep(5);
+    sleep(10);
   }
   printf("Stopped controlling CPU temperature.\n");
   bcm2835_gpio_clr(PIN);
