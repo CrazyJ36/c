@@ -13,7 +13,7 @@ int enemy_y = 6;
 int color = 0x00000000;
 int enemy_color = 0x000000FF;
 int score = 0;
-TCHAR scoreStr[100];
+TCHAR scoreStr[24];
 PAINTSTRUCT ps;
 HDC hdc;
 
@@ -61,7 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     wc.lpszClassName = mClassName;
     wc.hbrBackground = NULL;
     RegisterClassEx(&wc);
-    HWND hWnd = CreateWindowEx(0, mClassName, "Avoid Meteors!", WS_OVERLAPPEDWINDOW, 740, 350, 348, 128, NULL, NULL, hInstance, NULL);
+    HWND hWnd = CreateWindowEx(0, mClassName, "Avoid Meteors! by CrazyJ36", WS_OVERLAPPEDWINDOW, 740, 350, 348, 128, NULL, NULL, hInstance, NULL);
     if(hWnd == NULL) return 0;
     ShowWindow(hWnd, nCmdShow);
 
