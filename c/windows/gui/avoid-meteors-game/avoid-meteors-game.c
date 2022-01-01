@@ -13,6 +13,7 @@ int enemy_y = 6;
 int color = 0x00000000;
 int enemy_color = 0x000000FF;
 int score = 0;
+TCHAR scoreStr[100];
 PAINTSTRUCT ps;
 HDC hdc;
 
@@ -35,6 +36,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             SetPixel(hdc, x_point + 1, y_point, color); // right side of center.
             SetPixel(hdc, x_point - 1, y_point + 1, color); // left top from center
             SetPixel(hdc, x_point + 1, y_point - 1, color); // right top
+            SetPixel(hdc, x_point, y_point - 2, color); // body low
+            SetPixel(hdc, x_point, y_point - 3, color); // body high
+            SetPixel(hdc, x_point, y_point - 4, color); // head
+            SetPixel(hdc, x_point + 2, y_point - 2, color); // right arm
+            SetPixel(hdc, x_point - 2, y_point - 2, color); // left arm
             SetPixel(hdc, enemy_x, enemy_y, enemy_color);
 
             EndPaint(hWnd, &ps);
@@ -66,7 +72,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         DispatchMessage(&Msg);
 
         InvalidateRect(hWnd, NULL, TRUE); // allows window to be redrawn into by erasing previous.
-        
+        if (x_point >= 323 || x_point <= 8 || y_point <= 11 || y_point >= 82) {
+            _stprintf(scoreStr, _T("%d"), score);
+            MessageBox(hWnd, strcat("Score: ", scoreStr), "Out of bounds!", MB_OK);
+            break;
+        }
         if (enemy_x == x_point && enemy_y == y_point ||
             enemy_x == x_point + 1 && enemy_y == y_point + 1 ||
             enemy_x == x_point - 1 && enemy_y == y_point - 1 ||
@@ -74,9 +84,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             enemy_x == x_point - 1 && enemy_y == y_point ||
             enemy_x == x_point + 1 && enemy_y == y_point ||
             enemy_x == x_point - 1 && enemy_y == y_point + 1 ||
-            enemy_x == x_point + 1 && enemy_y == y_point - 1) {
+            enemy_x == x_point + 1 && enemy_y == y_point - 1 ||
+            enemy_x == x_point && enemy_y == y_point - 2 ||
+            enemy_x == x_point && enemy_y == y_point - 3 ||
+            enemy_x == x_point && enemy_y == y_point - 4 ||
+            enemy_x == x_point + 2 && enemy_y == y_point - 2 ||
+            enemy_x == x_point - 2 && enemy_y == y_point - 2) {
                 // convert int to LPCSTR
-                TCHAR scoreStr[100];
                 _stprintf(scoreStr, _T("%d"), score);
                 MessageBox(hWnd, strcat("Score: ", scoreStr), "You're Hit!", MB_OK);
                 break;
