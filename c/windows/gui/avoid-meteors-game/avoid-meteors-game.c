@@ -3,7 +3,7 @@
 #include <tchar.h>
 #include <stdio.h>
 
-#pragma comment(lib,"user32.lib") // for autolinking libs at compile time.
+#pragma comment(lib,"user32.lib") // for auto-linking libs at compile time without having to manually each time.
 #pragma comment(lib,"Gdi32.lib")
 
 int x_point = 50;
@@ -26,7 +26,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		case WM_PAINT:
             hdc = BeginPaint(hWnd, &ps);
             
-            Rectangle(hdc, 6, 6, 326, 84);
+            Rectangle(hdc, 6, 5, 326, 84);
             // Must setup all initial painting in WM_PAINT, they don't get created in WinMain.
             SetPixel(hdc, x_point, y_point, color); // params: SetPixel(BeginPaint(hWnd, &ps), x_position, y_position, color))
             SetPixel(hdc, x_point + 1, y_point + 1, color); // add diagonally from center point.
@@ -56,10 +56,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wc.lpfnWndProc = WndProc;
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.hInstance = hInstance;
-    wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+
+    // Custom Icons: wc.hIcon = LoadImage(hInstance, C:\string\path\name.ico, [type 1=icon, 2=cursor, 0=bitmap], width, height, LR_LOADFROMFILE);
+    wc.hIcon = LoadImage(hInstance, "C:\\Users\\crazy\\development\\c\\c\\windows\\gui\\avoid-meteors-game\\icon.ico", 1, 11, 11, LR_LOADFROMFILE);
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.lpszClassName = mClassName;
-    wc.hbrBackground = NULL;
+    wc.hbrBackground = (HBRUSH) (COLOR_WINDOW);
     RegisterClassEx(&wc);
     HWND hWnd = CreateWindowEx(0, mClassName, "Avoid Meteors! by CrazyJ36", WS_OVERLAPPEDWINDOW, 740, 350, 348, 128, NULL, NULL, hInstance, NULL);
     if(hWnd == NULL) return 0;
@@ -68,15 +70,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Get the threads' activity Message Loop.
 	MSG Msg;
     while(GetMessage(&Msg, NULL, 0, 0)) {
-        TranslateMessage(&Msg);
+        TranslateMessage(&Msg); // Always translate and dispatch messages on top or
         DispatchMessage(&Msg);
-
+    
         InvalidateRect(hWnd, NULL, TRUE); // allows window to be redrawn into by erasing previous.
-        if (x_point >= 323 || x_point <= 8 || y_point <= 11 || y_point >= 82) {
+        if (x_point >= 323 || x_point <= 8 || y_point <= 9 || y_point >= 82) {
             _stprintf(scoreStr, _T("%d"), score);
             MessageBox(hWnd, strcat("Score: ", scoreStr), "Out of bounds!", MB_OK);
             break;
         }
+
         if (enemy_x == x_point && enemy_y == y_point ||
             enemy_x == x_point + 1 && enemy_y == y_point + 1 ||
             enemy_x == x_point - 1 && enemy_y == y_point - 1 ||
@@ -123,9 +126,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             SetPixel(hdc, x_point, y_point, color);
         }
 
-        Sleep(1);
         score++;
+        Sleep(1);
     }
-    return Msg.wParam;  // returns messages ONCE after while.
+    return Msg.wParam; // returns messages ONCE after while.
+
+    // Freeing some vars will make the program close faster because the OS doesn't have to free them itself.
+    free(&Msg);
+    free(&ps);
+    free(&wc);
+    free(&hWnd);
+    free(&hdc);
+    free(&scoreStr);
+    free(&lpCmdLine);
+    free(&x_point);free(&y_point);free(&enemy_x);free(&enemy_y);free(&score);free(&color);free(&enemy_color);
 	return 0;
 }
