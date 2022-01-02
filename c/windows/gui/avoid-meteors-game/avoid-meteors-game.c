@@ -2,9 +2,11 @@
 #include <windows.h>
 #include <tchar.h>
 #include <stdio.h>
+#include <winternl.h>
 
 #pragma comment(lib,"user32.lib") // for auto-linking libs at compile time without having to manually each time.
 #pragma comment(lib,"Gdi32.lib")
+#pragma comment(lib,"ntdll.lib")
 
 int x_point = 50;
 int y_point = 50;
@@ -17,12 +19,16 @@ TCHAR scoreStr[24];
 PAINTSTRUCT ps;
 HDC hdc;
 
+// For delay
+ULONG actualResolution;
+LARGE_INTEGER interval;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch(uMsg) {
         case WM_CLOSE:
             DestroyWindow(hWnd); break;
         case WM_DESTROY:
-            PostQuitMessage(0); break;
+            PostQuitMessage(0); break;    
 		case WM_PAINT:
             hdc = BeginPaint(hWnd, &ps);
             
@@ -67,6 +73,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     if(hWnd == NULL) return 0;
     ShowWindow(hWnd, nCmdShow);
 
+    
     // Get the threads' activity Message Loop.
 	MSG Msg;
     while(GetMessage(&Msg, NULL, 0, 0)) {
@@ -125,9 +132,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             y_point = y_point + 1;
             SetPixel(hdc, x_point, y_point, color);
         }
-
         score++;
-        Sleep(1);
+
+        // Sleep very short time
+        ZwSetTimerResolution(1, TRUE, &actualResolution);
+        interval.QuadPart = -1 * (int)(60 * 1000.0f); // change these number for delay adjustment.
+        NtDelayExecution(FALSE, &interval);
     }
     return Msg.wParam; // returns messages ONCE after while.
 
