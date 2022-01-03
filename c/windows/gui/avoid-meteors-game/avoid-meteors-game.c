@@ -10,11 +10,14 @@
 
 int x_point = 50;
 int y_point = 50;
-int enemy_x = 20;
+int enemy_x = 30;
 int enemy_y = 6;
 int color = 0x00000000;
 int enemy_color = 0x000000FF;
 int score = 0;
+int clock_speed = -40000; // 40000 nanoseconds below the default of 1 millisecond.
+int random1 = 0;
+int random2 = 39;
 TCHAR scoreStr[24];
 PAINTSTRUCT ps;
 HDC hdc;
@@ -34,7 +37,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             
             Rectangle(hdc, 6, 5, 326, 84);
             // Must setup all initial painting in WM_PAINT, they don't get created in WinMain.
-            SetPixel(hdc, x_point, y_point, color); // params: SetPixel(BeginPaint(hWnd, &ps), x_position, y_position, color))
+            SetPixel(hdc, x_point, y_point, color); // params: SetPixel(hdc), x_position, y_position, color))
             SetPixel(hdc, x_point + 1, y_point + 1, color); // add diagonally from center point.
             SetPixel(hdc, x_point - 1, y_point - 1, color); // add inverted digonal from center point.
             SetPixel(hdc, x_point, y_point - 1, color); // direct above center point.
@@ -47,7 +50,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             SetPixel(hdc, x_point, y_point - 4, color); // head
             SetPixel(hdc, x_point + 2, y_point - 2, color); // right arm
             SetPixel(hdc, x_point - 2, y_point - 2, color); // left arm
+
             SetPixel(hdc, enemy_x, enemy_y, enemy_color);
+            SetPixel(hdc, enemy_x + 1, enemy_y, enemy_color);
+            SetPixel(hdc, enemy_x - 1, enemy_y - 2, enemy_color);
 
             EndPaint(hWnd, &ps);
             return 0;
@@ -63,17 +69,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.hInstance = hInstance;
 
-    // Custom Icons: wc.hIcon = LoadImage(hInstance, C:\string\path\name.ico, [type 1=icon, 2=cursor, 0=bitmap], width, height, LR_LOADFROMFILE);
-    wc.hIcon = LoadImage(hInstance, "C:\\Users\\crazy\\development\\c\\c\\windows\\gui\\avoid-meteors-game\\icon.ico", 1, 11, 11, LR_LOADFROMFILE);
+    // Custom Icons:
+    // wc.hIcon = LoadImage(hInstance, C:\string\path\name.ico, [type 1=icon, 2=cursor, 0=bitmap], width, height, LR_LOADFROMFILE);
+    wc.hIcon = LoadImage(hInstance,
+        "C:\\Users\\crazy\\development\\c\\c\\windows\\gui\\avoid-meteors-game\\icon.ico",
+        1, 11, 11, LR_LOADFROMFILE);
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.lpszClassName = mClassName;
-    wc.hbrBackground = (HBRUSH) (COLOR_WINDOW);
+    wc.hbrBackground = (HBRUSH) (COLOR_WINDOW + 2);
     RegisterClassEx(&wc);
-    HWND hWnd = CreateWindowEx(0, mClassName, "Avoid Meteors! by CrazyJ36", WS_OVERLAPPEDWINDOW, 740, 350, 348, 128, NULL, NULL, hInstance, NULL);
+    HWND hWnd = CreateWindowEx(0, mClassName, "Avoid Meteors! by CrazyJ36", WS_OVERLAPPEDWINDOW,
+        740, 350, 348, 128, NULL, NULL, hInstance, NULL);
     if(hWnd == NULL) return 0;
     ShowWindow(hWnd, nCmdShow);
 
-    
     // Get the threads' activity Message Loop.
 	MSG Msg;
     while(GetMessage(&Msg, NULL, 0, 0)) {
@@ -105,14 +114,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
                 MessageBox(hWnd, strcat("Score: ", scoreStr), "You're Hit!", MB_OK);
                 break;
         }
+        
         if (enemy_x >= 325) {
             enemy_x = 6;
         }
         if (enemy_y >= 83) {
             enemy_y = 6;
         }
-        enemy_x++;
-        enemy_y++;
+        random1++;
+        random2++;
+        if (random1 % 2 == 0) {
+            enemy_x = enemy_x + 2;
+            enemy_y++;
+        } else if (random2 % 3 == 0) {
+                enemy_x++;
+                enemy_y = enemy_y++;
+        }
+        
         SetPixel(hdc, enemy_x, enemy_y, enemy_color);
 
         // Get messages from keys in the main loop.
@@ -133,22 +151,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             SetPixel(hdc, x_point, y_point, color);
         }
         score++;
-
-        // Sleep very short time
-        ZwSetTimerResolution(1, TRUE, &actualResolution);
-        interval.QuadPart = -1 * (int)(60 * 1000.0f); // change these number for delay adjustment.
-        NtDelayExecution(FALSE, &interval);
+        // Delay
+        ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
+        interval.QuadPart = clock_speed;
+        NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval.
     }
     return Msg.wParam; // returns messages ONCE after while.
 
     // Freeing some vars will make the program close faster because the OS doesn't have to free them itself.
-    free(&Msg);
-    free(&ps);
-    free(&wc);
-    free(&hWnd);
-    free(&hdc);
-    free(&scoreStr);
-    free(&lpCmdLine);
-    free(&x_point);free(&y_point);free(&enemy_x);free(&enemy_y);free(&score);free(&color);free(&enemy_color);
+    free(&Msg);free(&ps);free(&wc);free(&hWnd);free(&hdc);free(&scoreStr);free(&lpCmdLine);free(&x_point);
+    free(&y_point);free(&enemy_x);free(&enemy_y);free(&score);free(&color);free(&enemy_color);
 	return 0;
 }
