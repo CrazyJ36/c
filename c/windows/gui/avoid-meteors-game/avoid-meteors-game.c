@@ -10,14 +10,13 @@
 
 int x_point = 50;
 int y_point = 50;
-int enemy_x = 30;
+int enemy_x = 20;
 int enemy_y = 6;
 int color = 0x00000000;
 int enemy_color = 0x000000FF;
 int score = 0;
-int clock_speed = -40000; // 40000 nanoseconds below the default of 1 millisecond.
-int random1 = 0;
-int random2 = 39;
+int clock_speed = -50000; // 40000 nanoseconds below the default of 1 millisecond.
+int random = 0;
 TCHAR scoreStr[24];
 PAINTSTRUCT ps;
 HDC hdc;
@@ -54,6 +53,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             SetPixel(hdc, enemy_x, enemy_y, enemy_color);
             SetPixel(hdc, enemy_x + 1, enemy_y, enemy_color);
             SetPixel(hdc, enemy_x - 1, enemy_y - 2, enemy_color);
+            SetPixel(hdc, enemy_x + 1, enemy_y - 1, enemy_color);
 
             EndPaint(hWnd, &ps);
             return 0;
@@ -121,15 +121,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         if (enemy_y >= 83) {
             enemy_y = 6;
         }
-        random1++;
-        random2++;
-        if (random1 % 2 == 0) {
+        random++;
+        if (random % 6 == 0) {
             enemy_x = enemy_x + 2;
-            enemy_y++;
-        } else if (random2 % 3 == 0) {
-                enemy_x++;
-                enemy_y = enemy_y++;
+        } else {
+            enemy_x++;
         }
+        enemy_y++;
         
         SetPixel(hdc, enemy_x, enemy_y, enemy_color);
 
