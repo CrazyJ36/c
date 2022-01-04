@@ -16,7 +16,7 @@ int color = 0x00000000;
 int enemy_color = 0x000000FF;
 int score = 0;
 int random = 0;
-int clock_speed = -50000; // 40000 nanoseconds below the default of 1 millisecond.
+int clock_speed = -50000; // below the default of 1 millisecond.
 TCHAR scoreStr[24];
 PAINTSTRUCT ps;
 HDC hdc;
@@ -30,34 +30,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
         case WM_CLOSE:
             DestroyWindow(hWnd); break;
         case WM_DESTROY:
-            PostQuitMessage(0); break;    
-		case WM_PAINT:
-            hdc = BeginPaint(hWnd, &ps);
-            
-            Rectangle(hdc, 6, 5, 326, 84);
-            // Must setup all initial painting in WM_PAINT, they don't get created in WinMain.
-            SetPixel(hdc, x_point, y_point, color); // params: SetPixel(hdc), x_position, y_position, color))
-            SetPixel(hdc, x_point + 1, y_point + 1, color); // add diagonally from center point.
-            SetPixel(hdc, x_point - 1, y_point - 1, color); // add inverted digonal from center point.
-            SetPixel(hdc, x_point, y_point - 1, color); // direct above center point.
-            SetPixel(hdc, x_point - 1, y_point, color); // left side of center.
-            SetPixel(hdc, x_point + 1, y_point, color); // right side of center.
-            SetPixel(hdc, x_point - 1, y_point + 1, color); // left top from center
-            SetPixel(hdc, x_point + 1, y_point - 1, color); // right top
-            SetPixel(hdc, x_point, y_point - 2, color); // body low
-            SetPixel(hdc, x_point, y_point - 3, color); // body high
-            SetPixel(hdc, x_point, y_point - 4, color); // head
-            SetPixel(hdc, x_point + 2, y_point - 2, color); // right arm
-            SetPixel(hdc, x_point - 2, y_point - 2, color); // left arm
+            PostQuitMessage(0); break;
+		case WM_CREATE:
+            case WM_PAINT:
+                hdc = BeginPaint(hWnd, &ps);
 
-            SetPixel(hdc, enemy_x, enemy_y, enemy_color);
-            SetPixel(hdc, enemy_x + 1, enemy_y, enemy_color);
-            SetPixel(hdc, enemy_x - 1, enemy_y - 2, enemy_color);
-            SetPixel(hdc, enemy_x + 1, enemy_y - 1, enemy_color);
+                Rectangle(hdc, 6, 5, 326, 84);
 
-            EndPaint(hWnd, &ps);
-            return 0;
-        default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
+                // Must setup all initial painting in WM_PAINT, they don't get created in WinMain.
+                SetPixel(hdc, x_point, y_point, color); // params: SetPixel(hdc), x_position, y_position, color))
+                SetPixel(hdc, x_point + 1, y_point + 1, color); // add diagonally from center point.
+                SetPixel(hdc, x_point - 1, y_point - 1, color); // add inverted digonal from center point.
+                SetPixel(hdc, x_point, y_point - 1, color); // direct above center point.
+                SetPixel(hdc, x_point - 1, y_point, color); // left side of center.
+                SetPixel(hdc, x_point + 1, y_point, color); // right side of center.
+                SetPixel(hdc, x_point - 1, y_point + 1, color); // left top from center
+                SetPixel(hdc, x_point + 1, y_point - 1, color); // right top
+                SetPixel(hdc, x_point, y_point - 2, color); // body low
+                SetPixel(hdc, x_point, y_point - 3, color); // body high
+                SetPixel(hdc, x_point, y_point - 4, color); // head
+                SetPixel(hdc, x_point + 2, y_point - 2, color); // right arm
+                SetPixel(hdc, x_point - 2, y_point - 2, color); // left arm
+
+                SetPixel(hdc, enemy_x, enemy_y, enemy_color);
+                SetPixel(hdc, enemy_x + 1, enemy_y, enemy_color);
+                SetPixel(hdc, enemy_x - 1, enemy_y - 2, enemy_color);
+                SetPixel(hdc, enemy_x + 1, enemy_y - 1, enemy_color);
+
+                EndPaint(hWnd, &ps);
+
+                // Delay
+                ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
+                interval.QuadPart = clock_speed;
+                NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval.
+                
+                return 0;
+            default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
     return 0;
 }
@@ -88,17 +96,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     while(GetMessage(&Msg, NULL, 0, 0)) {
         TranslateMessage(&Msg); // Always translate and dispatch messages on top or
         DispatchMessage(&Msg);
-    
-        InvalidateRect(hWnd, NULL, TRUE); // erase window each loop.
 
-        if (enemy_x >= 325) {
+        InvalidateRect(hWnd, NULL, FALSE); // erase window each loop.
+
+        if (enemy_x >= 324) {
             enemy_x = 6;
         }
         if (enemy_y >= 83) {
             enemy_y = 6;
         }
         random++;
-        if (random % 6 == 0) {
+        if (random % 5 == 0) {
             enemy_x = enemy_x + 2;
         } else {
             enemy_x++;
@@ -149,11 +157,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             MessageBox(hWnd, strcat("Score: ", scoreStr), "Out of bounds!", MB_OK);
             break;
         }
-
-        // Delay
-        ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
-        interval.QuadPart = clock_speed;
-        NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval.
     
     }
     return Msg.wParam; // returns messages ONCE after while.
@@ -163,4 +166,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     free(&y_point);free(&enemy_x);free(&enemy_y);free(&score);free(&color);free(&enemy_color);free(&clock_speed);
     free(&actualResolution);free(&interval);free(&scoreStr);free(&nCmdShow);free(&hInstance);free(&random);
 	return 0;
+
 }
