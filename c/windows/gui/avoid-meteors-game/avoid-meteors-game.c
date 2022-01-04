@@ -15,8 +15,8 @@ int enemy_y = 6;
 int color = 0x00000000;
 int enemy_color = 0x000000FF;
 int score = 0;
-int clock_speed = -50000; // 40000 nanoseconds below the default of 1 millisecond.
 int random = 0;
+int clock_speed = -50000; // 40000 nanoseconds below the default of 1 millisecond.
 TCHAR scoreStr[24];
 PAINTSTRUCT ps;
 HDC hdc;
@@ -89,32 +89,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         TranslateMessage(&Msg); // Always translate and dispatch messages on top or
         DispatchMessage(&Msg);
     
-        InvalidateRect(hWnd, NULL, TRUE); // allows window to be redrawn into by erasing previous.
-        if (x_point >= 323 || x_point <= 8 || y_point <= 9 || y_point >= 82) {
-            _stprintf(scoreStr, _T("%d"), score);
-            MessageBox(hWnd, strcat("Score: ", scoreStr), "Out of bounds!", MB_OK);
-            break;
-        }
+        InvalidateRect(hWnd, NULL, TRUE); // erase window each loop.
 
-        if (enemy_x == x_point && enemy_y == y_point ||
-            enemy_x == x_point + 1 && enemy_y == y_point + 1 ||
-            enemy_x == x_point - 1 && enemy_y == y_point - 1 ||
-            enemy_x == x_point && enemy_y == y_point - 1 ||
-            enemy_x == x_point - 1 && enemy_y == y_point ||
-            enemy_x == x_point + 1 && enemy_y == y_point ||
-            enemy_x == x_point - 1 && enemy_y == y_point + 1 ||
-            enemy_x == x_point + 1 && enemy_y == y_point - 1 ||
-            enemy_x == x_point && enemy_y == y_point - 2 ||
-            enemy_x == x_point && enemy_y == y_point - 3 ||
-            enemy_x == x_point && enemy_y == y_point - 4 ||
-            enemy_x == x_point + 2 && enemy_y == y_point - 2 ||
-            enemy_x == x_point - 2 && enemy_y == y_point - 2) {
-                // convert int to LPCSTR
-                _stprintf(scoreStr, _T("%d"), score);
-                MessageBox(hWnd, strcat("Score: ", scoreStr), "You're Hit!", MB_OK);
-                break;
-        }
-        
         if (enemy_x >= 325) {
             enemy_x = 6;
         }
@@ -128,9 +104,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             enemy_x++;
         }
         enemy_y++;
-        
         SetPixel(hdc, enemy_x, enemy_y, enemy_color);
-
+        
         // Get messages from keys in the main loop.
         if (GetAsyncKeyState(VK_LEFT)) {
             x_point = x_point - 1;
@@ -148,16 +123,44 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             y_point = y_point + 1;
             SetPixel(hdc, x_point, y_point, color);
         }
+
         score++;
+        _stprintf(scoreStr, _T("%d"), score);
+ 
+        if (enemy_x == x_point && enemy_y == y_point ||
+            enemy_x == x_point + 1 && enemy_y == y_point + 1 ||
+            enemy_x == x_point - 1 && enemy_y == y_point - 1 ||
+            enemy_x == x_point && enemy_y == y_point - 1 ||
+            enemy_x == x_point - 1 && enemy_y == y_point ||
+            enemy_x == x_point + 1 && enemy_y == y_point ||
+            enemy_x == x_point - 1 && enemy_y == y_point + 1 ||
+            enemy_x == x_point + 1 && enemy_y == y_point - 1 ||
+            enemy_x == x_point && enemy_y == y_point - 2 ||
+            enemy_x == x_point && enemy_y == y_point - 3 ||
+            enemy_x == x_point && enemy_y == y_point - 4 ||
+            enemy_x == x_point + 2 && enemy_y == y_point - 2 ||
+            enemy_x == x_point - 2 && enemy_y == y_point - 2) {
+                // convert int to LPCSTR
+                MessageBox(hWnd, strcat("Score: ", scoreStr), "You're Hit!", MB_OK);
+                break;
+        }
+
+        if (x_point >= 323 || x_point <= 8 || y_point <= 9 || y_point >= 82) {
+            MessageBox(hWnd, strcat("Score: ", scoreStr), "Out of bounds!", MB_OK);
+            break;
+        }
+
         // Delay
         ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
         interval.QuadPart = clock_speed;
         NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval.
+    
     }
     return Msg.wParam; // returns messages ONCE after while.
 
     // Freeing some vars will make the program close faster because the OS doesn't have to free them itself.
     free(&Msg);free(&ps);free(&wc);free(&hWnd);free(&hdc);free(&scoreStr);free(&lpCmdLine);free(&x_point);
-    free(&y_point);free(&enemy_x);free(&enemy_y);free(&score);free(&color);free(&enemy_color);
+    free(&y_point);free(&enemy_x);free(&enemy_y);free(&score);free(&color);free(&enemy_color);free(&clock_speed);
+    free(&actualResolution);free(&interval);free(&scoreStr);free(&nCmdShow);free(&hInstance);free(&random);
 	return 0;
 }
