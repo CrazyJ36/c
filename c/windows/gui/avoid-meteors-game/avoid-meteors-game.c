@@ -34,7 +34,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		case WM_CREATE:
             case WM_PAINT:
                 hdc = BeginPaint(hWnd, &ps);
-
+                
                 Rectangle(hdc, 6, 5, 326, 84);
 
                 // Must setup all initial painting in WM_PAINT, they don't get created in WinMain.
@@ -60,6 +60,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
                 EndPaint(hWnd, &ps);
 
                 // Delay
+                clock_speed = clock_speed + 2; // increase loop rate each paint.
                 ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
                 interval.QuadPart = clock_speed;
                 NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval.
@@ -76,9 +77,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wc.lpfnWndProc = WndProc;
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.hInstance = hInstance;
-
-    // Custom Icons:
-    // wc.hIcon = LoadImage(hInstance, C:\string\path\name.ico, [type 1=icon, 2=cursor, 0=bitmap], width, height, LR_LOADFROMFILE);
     wc.hIcon = LoadImage(hInstance,
         "C:\\Users\\crazy\\development\\c\\c\\windows\\gui\\avoid-meteors-game\\icon.ico",
         1, 11, 11, LR_LOADFROMFILE);
@@ -89,6 +87,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     HWND hWnd = CreateWindowEx(0, mClassName, "Avoid Meteors! by CrazyJ36", WS_OVERLAPPEDWINDOW,
         740, 350, 348, 128, NULL, NULL, hInstance, NULL);
     if(hWnd == NULL) return 0;
+   
     ShowWindow(hWnd, nCmdShow);
 
     // Get the threads' activity Message Loop.
@@ -130,8 +129,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             y_point = y_point + 1;
             SetPixel(hdc, x_point, y_point, color);
         }
+
         score++;
-        _stprintf(scoreStr, _T("%d"), score);
+        _stprintf(scoreStr, _T("%d"), score); // convert int to LPCSTR
  
         if (enemy_x == x_point && enemy_y == y_point ||
             enemy_x == x_point + 1 && enemy_y == y_point + 1 ||
@@ -146,7 +146,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             enemy_x == x_point && enemy_y == y_point - 4 ||
             enemy_x == x_point + 2 && enemy_y == y_point - 2 ||
             enemy_x == x_point - 2 && enemy_y == y_point - 2) {
-                // convert int to LPCSTR
                 MessageBox(hWnd, strcat("Score: ", scoreStr), "You're Hit!", MB_OK);
                 break;
         }
