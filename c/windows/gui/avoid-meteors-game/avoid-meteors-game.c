@@ -63,7 +63,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
                 ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
                 interval.QuadPart = clock_speed;
                 NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval.
-                
+
                 return 0;
             default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
@@ -94,10 +94,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Get the threads' activity Message Loop.
 	MSG Msg;
     while(GetMessage(&Msg, NULL, 0, 0)) {
+        
         TranslateMessage(&Msg); // Always translate and dispatch messages on top or
         DispatchMessage(&Msg);
-
-        InvalidateRect(hWnd, NULL, FALSE); // erase window each loop.
 
         if (enemy_x >= 324) {
             enemy_x = 6;
@@ -131,7 +130,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             y_point = y_point + 1;
             SetPixel(hdc, x_point, y_point, color);
         }
-
         score++;
         _stprintf(scoreStr, _T("%d"), score);
  
@@ -157,6 +155,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             MessageBox(hWnd, strcat("Score: ", scoreStr), "Out of bounds!", MB_OK);
             break;
         }
+
+        InvalidateRect(hWnd, NULL, FALSE); // erase window each loop.
     
     }
     return Msg.wParam; // returns messages ONCE after while.
