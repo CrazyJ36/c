@@ -70,22 +70,30 @@ int main(int argc, char *argv[]) {
     btn4_lev = bcm2835_gpio_lev(btns[3]);
     if (btn1_lev == 0) {
       oledSetPixel(x_pos, y_pos, 0);
+      oledSetPixel(x_pos + 1, y_pos, 0);
+      oledSetPixel(x_pos + 2, y_pos, 0);
       x_pos = x_pos - 1;
     }
     if (btn2_lev == 0) {
       oledSetPixel(x_pos, y_pos, 0);
+      oledSetPixel(x_pos + 1, y_pos, 0);
+      oledSetPixel(x_pos + 2, y_pos, 0);
       y_pos = y_pos - 1;
     }
     if (btn3_lev == 0) {
       oledSetPixel(x_pos, y_pos, 0);
+      oledSetPixel(x_pos + 1, y_pos, 0);
+      oledSetPixel(x_pos + 2, y_pos, 0);
       y_pos = y_pos + 1;
     }
     if (btn4_lev == 0) {
       oledSetPixel(x_pos, y_pos, 0);
+      oledSetPixel(x_pos + 1, y_pos, 0);
+      oledSetPixel(x_pos + 2, y_pos, 0);
       x_pos = x_pos + 1;
     }
 
-    if (x_pos < 1 || x_pos > 126 || y_pos < 1 || y_pos > 30) {
+    if (x_pos < 1 || x_pos > 124 || y_pos < 1 || y_pos > 30) {
       while (buzzer_repeater < 2) {
         bcm2835_gpio_write(buzzer_pin, HIGH);
         delay(100);
@@ -100,6 +108,8 @@ int main(int argc, char *argv[]) {
       break;
     }
     oledSetPixel(x_pos, y_pos, 1);
+    oledSetPixel(x_pos + 1, y_pos, 1);
+    oledSetPixel(x_pos + 2, y_pos, 1);
 
     oledSetPixel(enemy_x, enemy_y, 0);
     if (enemy_x >= 127) {
@@ -111,10 +121,7 @@ int main(int argc, char *argv[]) {
     enemy_x++;
     enemy_y++;
     if (enemy_x == x_pos && enemy_y == y_pos ||
-        enemy_x == x_pos - 2 && enemy_y == y_pos - 2 ||
-        enemy_x == x_pos - 1 && enemy_y == y_pos - 1 ||
-        enemy_x == x_pos + 1 && enemy_y == y_pos + 1 ||
-        enemy_x == x_pos + 2 && enemy_y == y_pos + 2) {
+        enemy_x == x_pos + 1 && enemy_y == y_pos) {
       oledFill(0);
       oledWriteString(0, 0, "You're hit!", FONT_SMALL);
       led_iter = 0;
