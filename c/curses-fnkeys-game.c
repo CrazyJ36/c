@@ -18,29 +18,34 @@ int main() {
   int ch; // to-be user input character
   int left = 0; // player 1
   int right = 0; // player 2
-  int x; // increment number for time limit
-  for (x = 0; x < 10; x++)  { // increment number for time limit
+  int misses = 0;
+  int inc; // increment number for time limit
+  for (inc = 0; inc < 10; inc++)  { // increment number for time limit
     ch = getch(); // get device input
 
-    switch(ch) { // get left or right button as 'player turn'
+    switch(ch) { // get key presses as 'player turn'
       case KEY_LEFT:
         left = left + 1; // increase player score
+        printw("left: %d, right: %d, miss: %d\n", left, right, misses);
         break; /* either this(left) or right. either or, should break to return which one happened
-                  (like latch vs momentary). switch will loop again to get next 'turn'. */
+                  (like latch vs momentary). switch will loop again to get next 'turn'.*/
       case KEY_RIGHT:
         right = right + 1;
+        printw("left: %d, right: %d, miss: %d\n", left, right, misses);
         break;
-   }
+      default:
+        misses += 1;
+        printw("miss! remaining tries: %d\n", inc);
+        break;
 
-    //print result each time
-    printw("left: %d, right: %d\n", left, right);
+  }
     refresh();
   }
 
   // after loop endwin()
   endwin();
   printf("Game over after 10 tries.\n");
-  printf("Left: %d Right: %d\n", left, right);
+  printf("Left: %d Right: %d, Misses: %d\n", left, right, misses);
   if (left > right) {
     printf("Left Wins!\n");
   } else if (right > left) {
