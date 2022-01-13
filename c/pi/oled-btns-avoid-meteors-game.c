@@ -121,7 +121,8 @@ int main(int argc, char *argv[]) {
     enemy_x++;
     enemy_y++;
     if (enemy_x == x_pos && enemy_y == y_pos ||
-        enemy_x == x_pos + 1 && enemy_y == y_pos) {
+        enemy_x == x_pos + 1 && enemy_y == y_pos ||
+        enemy_x == x_pos + 2 && enemy_y == y_pos) {
       oledFill(0);
       oledWriteString(0, 0, "You're hit!", FONT_SMALL);
       led_iter = 0;
