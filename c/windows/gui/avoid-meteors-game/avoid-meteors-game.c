@@ -1,4 +1,6 @@
-/* Build with: > cl program.c*/
+/* Written by CrazyJ36 for Windows
+   Edit line 128 to point to your systems' C:\User\* directory,
+   and Build with: > cl program.c*/
 #include <windows.h>
 #include <tchar.h>
 #include <stdio.h>
