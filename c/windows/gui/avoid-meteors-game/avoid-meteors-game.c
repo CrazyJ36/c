@@ -13,7 +13,9 @@ int y_point = 50;
 int enemy_x = 20;
 int enemy_y = 6;
 int color = 0x00000000;
+int color_off = 0xFFFFFFFF;
 int enemy_color = 0x000000FF;
+int enemy_color_off = 0xFFFFFFFF;
 int score = 0;
 int random = 0;
 int clock_speed = -50000; // below the default of 1 millisecond.
@@ -31,13 +33,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
             DestroyWindow(hWnd); break;
         case WM_DESTROY:
             PostQuitMessage(0); break;
-		case WM_CREATE:
+        case WM_CREATE:
+            
             case WM_PAINT:
                 hdc = BeginPaint(hWnd, &ps);
-                
-                Rectangle(hdc, 6, 5, 326, 84);
 
-                // Must setup all initial painting in WM_PAINT, they don't get created in WinMain.
+                Rectangle(hdc, 6, 5, 326, 84);
+                // Must setup all initial painting in WM_CREATE or WM_PAINT, they don't get created in WinMain
+                // Though WinMain can update points for new loop iterations of paint calls.
                 SetPixel(hdc, x_point, y_point, color); // params: SetPixel(hdc), x_position, y_position, color))
                 SetPixel(hdc, x_point + 1, y_point + 1, color); // add diagonally from center point.
                 SetPixel(hdc, x_point - 1, y_point - 1, color); // add inverted digonal from center point.
@@ -47,26 +50,70 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
                 SetPixel(hdc, x_point - 1, y_point + 1, color); // left top from center
                 SetPixel(hdc, x_point + 1, y_point - 1, color); // right top
                 SetPixel(hdc, x_point, y_point - 2, color); // body low
-                SetPixel(hdc, x_point, y_point - 3, color); // body high
+                SetPixel(hdc, x_point, y_point - 3,  color); // body high
                 SetPixel(hdc, x_point, y_point - 4, color); // head
                 SetPixel(hdc, x_point + 2, y_point - 2, color); // right arm
                 SetPixel(hdc, x_point - 2, y_point - 2, color); // left arm
-
                 SetPixel(hdc, enemy_x, enemy_y, enemy_color);
                 SetPixel(hdc, enemy_x + 1, enemy_y, enemy_color);
                 SetPixel(hdc, enemy_x - 1, enemy_y - 2, enemy_color);
                 SetPixel(hdc, enemy_x + 1, enemy_y - 1, enemy_color);
 
+                if (enemy_x >= 324) {
+                    enemy_x = 6;
+                }
+                if (enemy_y >= 83) {
+                    enemy_y = 6;
+                }
+                random++;
+                if (random % 5 == 0) {
+                    enemy_x = enemy_x + 2;
+                } else {
+                    enemy_x++;
+                }
+                enemy_y++;
+                SetPixel(hdc, enemy_x, enemy_y, enemy_color);
+
+                // Get messages from keys in the main loop.
+                if (GetAsyncKeyState(VK_LEFT)) {
+                    x_point = x_point - 1;
+                    SetPixel(hdc, x_point, y_point, color);
+                }
+                if (GetAsyncKeyState(VK_RIGHT)) {
+                    x_point = x_point + 1;
+                    SetPixel(hdc, x_point, y_point, color);
+                }
+                if (GetAsyncKeyState(VK_UP)) {
+                    y_point = y_point - 1;
+                    SetPixel(hdc, x_point, y_point, color);
+                }
+                if (GetAsyncKeyState(VK_DOWN)) {
+                    y_point = y_point + 1;
+                    SetPixel(hdc, x_point, y_point, color);
+                }
+
+                SetPixel(hdc, x_point, y_point, color_off); // params: SetPixel(hdc), x_position, y_position, color))
+                SetPixel(hdc, x_point + 1, y_point + 1, color_off); // add diagonally from center point.
+                SetPixel(hdc, x_point - 1, y_point - 1, color_off); // add inverted digonal from center point.
+                SetPixel(hdc, x_point, y_point - 1, color_off); // direct above center point.
+                SetPixel(hdc, x_point - 1, y_point, color_off); // left side of center.
+                SetPixel(hdc, x_point + 1, y_point, color_off); // right side of center.
+                SetPixel(hdc, x_point - 1, y_point + 1, color_off); // left top from center
+                SetPixel(hdc, x_point + 1, y_point - 1, color_off); // right top
+                SetPixel(hdc, x_point, y_point - 2, color_off); // body low
+                SetPixel(hdc, x_point, y_point - 3,  color_off); // body high
+                SetPixel(hdc, x_point, y_point - 4, color_off); // head
+                SetPixel(hdc, x_point + 2, y_point - 2, color_off); // right arm
+                SetPixel(hdc, x_point - 2, y_point - 2, color_off); // left arm
+                SetPixel(hdc, enemy_x, enemy_y, enemy_color_off);
+                SetPixel(hdc, enemy_x + 1, enemy_y, enemy_color_off);
+                SetPixel(hdc, enemy_x - 1, enemy_y - 2, enemy_color_off);
+                SetPixel(hdc, enemy_x + 1, enemy_y - 1, enemy_color_off);
+
                 EndPaint(hWnd, &ps);
 
-                // Delay
-                clock_speed = clock_speed + 2; // increase loop rate each paint.
-                ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
-                interval.QuadPart = clock_speed;
-                NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval.
-
-                return 0;
-            default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
+            return 0;
+        default: return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
     return 0;
 }
@@ -82,53 +129,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         1, 11, 11, LR_LOADFROMFILE);
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.lpszClassName = mClassName;
-    wc.hbrBackground = (HBRUSH) (COLOR_WINDOW + 2);
+    wc.hbrBackground = (HBRUSH) COLOR_WINDOW + 2;
     RegisterClassEx(&wc);
     HWND hWnd = CreateWindowEx(0, mClassName, "Avoid Meteors! by CrazyJ36", WS_OVERLAPPEDWINDOW,
         740, 350, 348, 128, NULL, NULL, hInstance, NULL);
     if(hWnd == NULL) return 0;
-   
     ShowWindow(hWnd, nCmdShow);
 
     // Get the threads' activity Message Loop.
 	MSG Msg;
     while(GetMessage(&Msg, NULL, 0, 0)) {
-        
+
         TranslateMessage(&Msg); // Always translate and dispatch messages on top or
         DispatchMessage(&Msg);
-
-        if (enemy_x >= 324) {
-            enemy_x = 6;
-        }
-        if (enemy_y >= 83) {
-            enemy_y = 6;
-        }
-        random++;
-        if (random % 5 == 0) {
-            enemy_x = enemy_x + 2;
-        } else {
-            enemy_x++;
-        }
-        enemy_y++;
-        SetPixel(hdc, enemy_x, enemy_y, enemy_color);
-        
-        // Get messages from keys in the main loop.
-        if (GetAsyncKeyState(VK_LEFT)) {
-            x_point = x_point - 1;
-            SetPixel(hdc, x_point, y_point, color);
-        }
-        if (GetAsyncKeyState(VK_RIGHT)) {
-            x_point = x_point + 1;
-            SetPixel(hdc, x_point, y_point, color);
-        }
-        if (GetAsyncKeyState(VK_UP)) {
-            y_point = y_point - 1;
-            SetPixel(hdc, x_point, y_point, color);
-        }
-        if (GetAsyncKeyState(VK_DOWN)) {
-            y_point = y_point + 1;
-            SetPixel(hdc, x_point, y_point, color);
-        }
 
         score++;
         _stprintf(scoreStr, _T("%d"), score); // convert int to LPCSTR
@@ -154,9 +167,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             MessageBox(hWnd, strcat("Score: ", scoreStr), "Out of bounds!", MB_OK);
             break;
         }
+        
+        // Delay
+        clock_speed = clock_speed + 2; // increase loop rate each paint.
+        ZwSetTimerResolution(1, TRUE, &actualResolution); // modify the system clock frequency.
+        interval.QuadPart = clock_speed;
+        NtDelayExecution(FALSE, &interval); //Delay execution with the value of interval/
 
-        InvalidateRect(hWnd, NULL, FALSE); // erase window each loop.
-    
+        RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE | RDW_INTERNALPAINT);
+
     }
     return Msg.wParam; // returns messages ONCE after while.
 
@@ -164,6 +183,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     free(&Msg);free(&ps);free(&wc);free(&hWnd);free(&hdc);free(&scoreStr);free(&lpCmdLine);free(&x_point);
     free(&y_point);free(&enemy_x);free(&enemy_y);free(&score);free(&color);free(&enemy_color);free(&clock_speed);
     free(&actualResolution);free(&interval);free(&scoreStr);free(&nCmdShow);free(&hInstance);free(&random);
+    free(&color_off);free(&enemy_color_off);
 	return 0;
 
 }
