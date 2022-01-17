@@ -1,7 +1,4 @@
 #include <ncurses.h>
-/* TODO not echo char and respond only if getch is arrow, or
-   show 'player missed' if wrong button was pressed.
-*/
 
 int main() {
   initscr(); // start curses
