@@ -4,11 +4,11 @@
 
 int main()
 {
-  int count = 0;
+  int count;
   char object = '*';
 
   // top line, straight string of characters
-  for (count; count < 5; count++) {
+  for (count = 0; count < 5; count++) {
     printf("%c", object);
   }
   // sides must start on new line
