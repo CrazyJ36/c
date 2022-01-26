@@ -3,7 +3,7 @@
  * Recreated by CrazyJ36
  *
  * Prints to stdout using the same function definition
- * from stdio, but does not include it.
+ * in stdio.h, but does not include it.
  * C still knows to print to stdout due
  * to linked crt (screen) libs.
 */
