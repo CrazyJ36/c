@@ -107,6 +107,7 @@ int main(int argc, char *argv[]) {
       delay(1000);
       break;
     }
+
     oledSetPixel(x_pos, y_pos, 1);
     oledSetPixel(x_pos + 1, y_pos, 1);
     oledSetPixel(x_pos + 2, y_pos, 1);
@@ -120,6 +121,7 @@ int main(int argc, char *argv[]) {
     }
     enemy_x++;
     enemy_y++;
+
     if (enemy_x == x_pos && enemy_y == y_pos ||
         enemy_x == x_pos + 1 && enemy_y == y_pos ||
         enemy_x == x_pos + 2 && enemy_y == y_pos) {
