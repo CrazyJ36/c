@@ -67,6 +67,7 @@ int main(int argc, char *argv[]) {
     0x00,0xae,0xd5,0x80,0xa8,0x1f,0xd3,0x00,0x40,0x8d,0x14,0xa1,0xc8,0xda,0x02,
     0x81,0x7f,0xd9,0xf1,0xdb,0x40,0xa4,0xa6,0xaf
   };
+
   if ( (file_i2c = open("/dev/i2c-1", O_RDWR) ) < 0) {
     printf("failed to open i2c bus: /dev/i2c-1\n");
     file_i2c = 0;
@@ -77,10 +78,21 @@ int main(int argc, char *argv[]) {
     file_i2c = 0;
     return 1;
   }
+
+
+  for (int x = 0; x < 127; x++) {
+    oledSetPixel(x, 0, 1);
+  }
+  for (int y = 0; y < 31; y++) {
+    oledSetPixel(0, y, 1);
+  }
+
+
   if (file_i2c != 0) {
     write(file_i2c, oled32_initbuf, sizeof(oled32_initbuf));
     oledSetPixel(arg1, arg2, 1);
   }
+
   sleep(2);
   if (file_i2c != 0) {
     oledSetPixel(arg1, arg2, 0);
