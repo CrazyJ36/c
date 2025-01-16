@@ -36,6 +36,20 @@ void oledSetPosition(int x, int y) {
   oledWriteCommand(0x10 | ((x >> 4) & 0xf)); // upper col addr
 }
 
+
+int oledFill(unsigned char ucData) {
+  int y;
+  unsigned char temp[128];
+
+
+  memset(temp, ucData, 128);
+  for (y = 0; y < 4; y++) {
+    oledSetPosition(0, y);
+    oledWriteDataBlock(temp, 128);
+  }
+  return 0;
+}
+
 int oledSetPixel(int x, int y, unsigned char ucColor) {
   int i;
   unsigned char uc, ucOld;
@@ -80,26 +94,19 @@ int main(int argc, char *argv[]) {
   }
 
 
-  /*for (int x = 0; x < 127; x++) {
-    oledSetPixel(x, 0, 1);
-  }
-  for (int y = 0; y < 31; y++) {
-    oledSetPixel(0, y, 1);
-  }*/
-
-
   if (file_i2c != 0) {
     write(file_i2c, oled32_initbuf, sizeof(oled32_initbuf));
+    oledFill(0x00);
     oledSetPixel(arg1, arg2, 1);
   }
 
   sleep(2);
   if (file_i2c != 0) {
-    oledSetPixel(arg1, arg2, 0);
+    //oledSetPixel(arg1, arg2, 0);
+    //oledFill(0x00);
     oledWriteCommand(0xaE);
     close(file_i2c);
     file_i2c = 0;
   }
   return 0;
 }
-
