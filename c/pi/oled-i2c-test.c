@@ -80,12 +80,12 @@ int main(int argc, char *argv[]) {
   }
 
 
-  for (int x = 0; x < 127; x++) {
+  /*for (int x = 0; x < 127; x++) {
     oledSetPixel(x, 0, 1);
   }
   for (int y = 0; y < 31; y++) {
     oledSetPixel(0, y, 1);
-  }
+  }*/
 
 
   if (file_i2c != 0) {
