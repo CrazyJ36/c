@@ -18,14 +18,14 @@ void oledWriteCommand(unsigned char c) {
   write(file_i2c, buf, 2);
 }
 
-static void oledWriteDataBlock(unsigned char *ucBuf, int iLen) {
+void oledWriteDataBlock(unsigned char *ucBuf, int iLen) {
   unsigned char ucTemp[129];
-  int rc;
   ucTemp[0] = 0x40; // data command
   memcpy(&ucTemp[1], ucBuf, iLen);
-  rc = write(file_i2c, ucTemp, iLen+1);
-  if (rc) {}
-  memcpy(&ucScreen[iScreenOffset], ucBuf, iLen);
+
+  write(file_i2c, ucTemp, iLen+1);
+
+  //memcpy(&ucScreen[iScreenOffset], ucBuf, iLen); // keep a copy in local buffer.
   iScreenOffset += iLen;
 }
 
@@ -37,26 +37,20 @@ void oledSetPosition(int x, int y) {
 }
 
 
-int oledFill(unsigned char ucData) {
-  int y;
+void oledFill(unsigned char ucData) {
   unsigned char temp[128];
 
-
   memset(temp, ucData, 128);
-  for (y = 0; y < 4; y++) {
+  for (int y = 0; y < 4; y++) {
     oledSetPosition(0, y);
     oledWriteDataBlock(temp, 128);
   }
-  return 0;
 }
 
-int oledSetPixel(int x, int y, unsigned char ucColor) {
+void oledSetPixel(int x, int y, unsigned char ucColor) {
   int i;
   unsigned char uc, ucOld;
   i = ((y >> 3) * 128) + x;
-  if (i < 0 || i > 1023) { // off the screen
-    return -1;
-  }
   uc = ucOld = ucScreen[i];
   uc &= ~(0x1 << (y & 7));
   if (ucColor) {
@@ -67,14 +61,19 @@ int oledSetPixel(int x, int y, unsigned char ucColor) {
     oledWriteDataBlock(&uc, 1);
 
   }
-  return 0;
 }
 
 int main(int argc, char *argv[]) {
   if (!argv[1] || !argv[2]) {
-    printf("enter 2 numbers (x & y pixel position) as args\n");
+    printf("Enter 2 numbers (x & y pixel position) as args\n");
     return 1;
   }
+  if (atoi(argv[1]) < 0 || atoi(argv[1]) > 127 ||
+    atoi(argv[2]) < 0 || atoi(argv[2]) > 31) {
+      printf("Some entered coordinates are off screen. My PiOled screen is 128(x) by 32(y)\n");
+      return 1;
+  }
+
   int arg1 = atoi(argv[1]);
   int arg2 = atoi(argv[2]);
   const unsigned char oled32_initbuf[] = {
@@ -83,28 +82,25 @@ int main(int argc, char *argv[]) {
   };
 
   if ( (file_i2c = open("/dev/i2c-1", O_RDWR) ) < 0) {
-    printf("failed to open i2c bus: /dev/i2c-1\n");
+    printf("Failed to open i2c bus: /dev/i2c-1\n");
     file_i2c = 0;
     return 1;
   }
   if (ioctl(file_i2c, I2C_SLAVE, 0x3c) < 0) {
-    printf("failed to talk to i2c device\n");
+    printf("Failed to talk to i2c device\n");
     file_i2c = 0;
     return 1;
   }
 
-
   if (file_i2c != 0) {
     write(file_i2c, oled32_initbuf, sizeof(oled32_initbuf));
-    oledFill(0x00);
+    oledFill(0x00); // fill black
     oledSetPixel(arg1, arg2, 1);
   }
 
   sleep(2);
   if (file_i2c != 0) {
-    //oledSetPixel(arg1, arg2, 0);
-    //oledFill(0x00);
-    oledWriteCommand(0xaE);
+    oledWriteCommand(0xaE); // shutdown
     close(file_i2c);
     file_i2c = 0;
   }
