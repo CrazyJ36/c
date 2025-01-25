@@ -34,7 +34,7 @@ int main() {
       // converting celcius output of new buffer to fahrenheit format using calculations.
       temp = ((atoi(buff) / 1000) * 1.8) + 32;
       // print temp in fahrenheit, comment this out if you're running this program in background.
-      printf("temperature in fahrenheit: %d\n", temp);
+      //printf("temperature in fahrenheit: %d\n", temp);
 
       // if fahrenheit temp is above 100, turn on fan
       if (temp > 90 && bcm2835_gpio_lev(LOW)) {
