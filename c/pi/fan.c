@@ -37,10 +37,10 @@ int main() {
       //printf("temperature in fahrenheit: %d\n", temp);
 
       // if fahrenheit temp is above 100, turn on fan
-      if (temp > 90 && bcm2835_gpio_lev(LOW)) {
+      if (temp > 99 && bcm2835_gpio_lev(LOW)) {
         bcm2835_gpio_write(PIN, HIGH);
       }
-      else if (temp <= 90 && bcm2835_gpio_lev(HIGH)) {
+      else if (temp <= 99 && bcm2835_gpio_lev(HIGH)) {
         bcm2835_gpio_write(PIN, LOW);
       }
     }
