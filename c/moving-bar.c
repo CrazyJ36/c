@@ -1,32 +1,25 @@
-/* TODO Recreate this for practice. */
-
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 
 int main() {
-  // simply printing more variables for each iteration
-  char bar[6] = "-----";
-  char tabch[5] = "\t";
+  char bar[6] = "---";
+  int i = 0;
 
-  printf("%s\n", bar);
-  usleep(500000);
-  printf("%s%s\n", tabch, bar);
-  usleep(500000);
-  printf("%s%s%s\n", tabch, tabch, bar);
+  while(i < 5) {
 
-  // another way with loop.
-  int count = 0;
+    printf("\r%s%s", bar, " ");
+    fflush(stdout);
 
-  char y[20] = " ";
-  char x[20] = "-";
+    usleep(500000);
 
-  while (count < 10) {
-    strcat(y, x);  // strcat(taget, source); only adds another x on loop.
-    printf("%s\n", y); // thing now has additional space after each loop.
-    usleep(300000);
-    count++;
+    printf("\r%s%s", " ", bar);
+    fflush(stdout);
+
+    usleep(500000);
+
+    i++;
   }
 
   printf("\n");
