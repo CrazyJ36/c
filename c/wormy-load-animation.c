@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h> // for system or exit()
-
+#include <unistd.h> // for usleep()
+#include <stdlib.h> // for system().
 int main() {
   system("setterm -cursor off");
   char dot = '.';
@@ -22,7 +21,7 @@ int main() {
     }
 
   }
-  printf("\n");
+  printf("\r");
   system("setterm -cursor on");
-  exit(0);
+  return 0;
 }

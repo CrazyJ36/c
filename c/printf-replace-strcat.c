@@ -1,13 +1,13 @@
-// Avoiding ctrcat
+// Avoiding strcat
 
 #include <stdio.h>
 
 int main() {
 
   char letter = 'a';
-  char base[32] = "letter is";
+  char base[9] = "letter is";
 
-  printf("%s: %c\n", base, letter );
+  printf("%s: %c\n", base, letter);
 
   return 0;
 
