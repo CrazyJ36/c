@@ -3,7 +3,7 @@
 int main() {
   FILE * fp;
   fp = fopen ("file.txt", "w+");
-  fprintf(fp, "%s", "This file was wirtten from 'fopen-write-file'.\n");
+  fprintf(fp, "%s", "This file was written from 'file-write-fopen.c.\n");
   fclose(fp);
   return(0);
 }
